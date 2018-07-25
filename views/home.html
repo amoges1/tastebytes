@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome Stylings -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">        
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <style>
+        #map {
+            width: 100%;
+            height: inherit;
+            background-color: grey;
+        }
+      </style>
+        <script type="text/javascript">
+         $("#modalWindowId").on("shown.bs.modal", function(e) {
+      google.maps.event.trigger(map, "resize");
+      return map.setCenter(markerLatLng);
+    });
+            // Initialize and add the map
+            function initMap() {
+                // The location of Uluru
+                var uluru = {lat: -25.344, lng: 131.036};
+                // The map, centered at Uluru
+                var map = new google.maps.Map(
+                    document.getElementById('map'), {zoom: 4, center: uluru});
+                
+
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({position: uluru, map: map});
+                //$("#map").checkResize();
+                // google.maps.event.trigger(map, "resize");
+              
+
+            }
+           
+                </script>
+    <!-- https://www.lynda.com/Bootstrap-tutorials/Basic-card-layouts/372545/702983-4.html -->
+    <!-- https://www.w3schools.com/bootstrap4/bootstrap_flex.asp -->
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: red">
+        <div class="container">
+
+                <div class="navbar-brand"> TasteBytes</div>
+
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#myNav" aria-controls="myNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+
+            <div class="collapse navbar-collapse" id="myNav">
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link" href="#">Home</a>
+                    <a class="nav-item nav-link" href="#friends">Friends</a>
+                    <a class="nav-item nav-link" href="#search">Search</a>
+                    
+                    <div class="dropdown">
+                        <a class="nav-item nav-link dropdown-toggle" 
+                            id="userDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" href="#">User</a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>    
+                    </div>
+                </div> <!--navbar-->
+            </div>  <!--collapse-->        
+        </div>
+    </nav>
+
+    <div class="container border-bottom" style="padding-top: 20px;">
+        
+            <h6 class="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#recs">
+                New Recommendations!
+                <span class="badge badge-warning">10 </span>
+            </h6>
+            <div id="recs" class="collapse">
+                <div class="card" style="margin-top: 15px; margin-bottom: 15px">
+                    <div class="card-header bg-danger text-white">
+                        Restaurant Name
+                    </div>
+                    <div class="card-body">
+                        <em class="card-text">"I highly recommend this place" - <span>Anteneh</span></em>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <div class="btn-group d-flex">
+                                <button type="button" class="btn btn-sm btn-success ">Add <i class="fas fa-plus-circle"></i></button>
+                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#map">Location <i class="fas fa-map-marker-alt"></i></button>
+                                <button type="button" class="btn btn-sm btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 15px; margin-bottom: 15px">
+                        <div class="card-header bg-danger text-white">
+                            Restaurant Name
+                        </div>
+                        <div class="card-body">
+                            <em class="card-text">"I highly recommend this place" - <span>Anteneh</span></em>
+                        </div>
+                        <div class="card-footer d-flex justify-content-end">
+                            <div class="btn-group d-flex">
+                                    <button type="button" class="btn btn-sm btn-success ">Add <i class="fas fa-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#map">Location <i class="fas fa-map-marker-alt"></i></button>
+                                    <button type="button" class="btn btn-sm btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                <!-- <ul class="list-group mb-3">
+                   
+                   
+                    <li class="list-group-item list-group-item-action ">  
+                        <h6 class="d-flex justify-content-center align-items-center">  
+                            The longes restaurant of all by Username That
+                        </h6>
+                        <div class="d-flex justify-content-around">
+                            <button type="button" class="btn btn-sm btn-secondary btn-success">Add <i class="fas fa-plus-circle"></i></button>
+                            <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#map">Location <i class="fas fa-map-marker-alt"></i></button>
+                            <button type="button" class="btn btn-sm btn-secondary btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+                        </div> 
+                    </li>
+                </ul> -->
+            </div>
+              
+    </div>
+
+    <div class="container" style="padding-top: 20px;" id="restaurantaccordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" style="background-color: red" id="restaurantheading" data-toggle="collapse" data-parent="restaurantaccordion"
+            data-target="#restaurantID" aria-expanded="true" aria-controls="restaurantID">
+                <h5 class="mb-0 d-flex justify-content-between" style="color: white">  Restaurant name             
+                    <span class="badge badge-success">8.5</span>
+                </h5>
+            </div> <!-- card header-->
+
+            <div id="restaurantID" class="collapse show" role="tabpanel"
+            aria-labelledby="restaurantheading">
+                <div class="card-block container" >
+                        <!-- row justify-content-around -->
+                    <div class="d-flex btn-group" style="padding-top: 20px;">
+                        <button type="button" class="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
+                            Share <i class="fas fa-user-friends"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning flex-fill" data-toggle="modal" data-target="#map">
+                            Location <i class="fas fa-map-marker-alt"></i>
+                        </button> 
+                        <button type="button" class="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">
+                            Delete <i class="fas fa-trash-alt"></i></button>
+                    </div> <!-- button row-->
+                    <div class="row" style="padding-top: 20px;">
+                        <div class="container">
+                            <table class="table table-striped ">
+                                <tbody>
+                                    <tr class="table-warning">
+                                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore assumenda, facilis nam, maiores sint quas velit, veritatis quia maxime tempore recusandae mollitia? Voluptates omnis dolorum sed odit voluptatem at nobis!</td>
+                                        <td style="text-align: center"><span class="badge badge-warning">8.5</span> Anteneh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>I really enjoyed this restaurant</td>
+                                        <td style="text-align: center"><span class="badge badge-success">8.5</span><strong>Anteneh</strong> </td>
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <td>I really enjoyed this restaurant</td>
+                                        <td style="text-align: center"> <span class="badge badge-danger" >4.5</span>Anteneh</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!--table row-->
+                </div> <!--card-block-->
+            </div> <!-- collapse -->
+
+        </div> <!--card-->
+    </div>
+  
+    <div class="modal fade" id="share">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #28a745;">
+                    <h5 class="modal-title" style="color: white">Share</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><!--modal-header-->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="d-flex flex-column align-items-center pb-2 mt-4 mb-2 border-bottom">
+                            <h4>Shack Shack 
+                            </h4>
+                            <h5>123 Frank Street</h5>
+                            <h5><span class="badge badge-pill badge-success">8.5</span></h5>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="d-flex flex-column align-items-center">
+                            <h5>Share with 
+                            <select name="friends" id="friend">
+                                <option value="Anteneh">Anteneh</option>
+                                <option value="Jennifer">Jennifer</option>
+                            </select>
+                        </h5>
+                        </div>
+                    </div>
+                </div><!--modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" 
+                        data-dismiss="modal">Confirm</button>
+                </div>
+            </div><!--modal-content-->
+        </div> <!-- modal-dialog -->
+    </div>
+    <div class="modal fade" id="map">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #ffc107">
+                        <h5 class="modal-title">Hello</h5>
+                        <button type="button" class="close" data-dismiss="modal" 
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div><!--modal-header-->
+                    <div class="modal-body">
+                        <div id="map"></div>
+                      
+                                            <!--Load the API from the specified URL
+                                            * The async attribute allows the browser to render the page while the API loads
+                                            * The key parameter will contain your own API key (which is not needed for this tutorial)
+                                            * The callback parameter executes the initMap() function
+                                            -->
+                                            <script async defer
+                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQ1bLPjeXDxr6u-2G6lE0NvpaPCWkcmBw&callback=initMap">
+                </script>    
+                    </div> <!-- modal body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" 
+                        data-dismiss="modal">Done</button>
+                    </div> <!-- modal footer-->
+                </div> <!-- modal content-->
+            </div> <!-- modal dialog-->
+        </div> <!-- modal fade-->
+    <div class="modal fade" id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #dc3545">
+                    <h5 class="modal-title" style="color: white">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><!--modal-header-->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="d-flex flex-column align-items-center ">
+                            <h4>Shack Shack 
+                            </h4>
+                            <h5>123 Frank Street</h5>
+                            <h5><span class="badge badge-pill badge-success">8.5</span></h5>
+                        </div>
+                    </div>                  
+                </div><!--modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                </div>
+            </div><!--modal-content-->
+        </div> <!-- modal-dialog -->
+    </div>
+
+    <!-- Firebase -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script src="js/home.js"> </script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>        
+</body>
+</html>

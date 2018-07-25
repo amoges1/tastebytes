@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Friends</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome Stylings -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: red">
+        <div class="container">
+
+            <div class="navbar-brand"> TasteBytes</div>
+
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#myNav" aria-controls="myNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="myNav">
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link" href="#">Home</a>
+                    <a class="nav-item nav-link active" href="#friends">Friends</a>
+                    <a class="nav-item nav-link" href="#search">Search</a>
+                    
+                    <div class="dropdown">
+                        <a class="nav-item nav-link dropdown-toggle" 
+                            id="userDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" href="#">User</a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>    
+                    </div>
+                </div> <!--navbar-->
+            </div>  <!--collapse-->        
+        </div>
+    </nav>
+ 
+    <div class="container" style="padding-top: 20px;">
+        <div>
+            <h6 class="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#newfriends">
+                New Friend Requests!
+                <span class="badge badge-warning">6 </span>
+            </h6>
+            <div id="newfriends" class="collapse">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item list-group-item-action "> 
+                         <h4  class="mb-0 d-flex justify-content-between">Anteneh has a long name
+                             <div class="btn-group">
+                                 <button type="button" class="btn btn-success btn-sm">
+                                       Accept <i class="far fa-check-circle"></i>
+                                 </button>
+                                 <button type="button" class="btn btn-danger btn-sm"> 
+                                     Decline <i class="far fa-times-circle"></i>
+                                 </button>
+                             </div>
+                         </h4>
+                    </li>
+                    <li class="list-group-item list-group-item-action ">  
+                        <h4 class="mb-0 d-flex justify-content-between">Jennifer
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-sm">
+                                        Accept <i class="far fa-check-circle"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm"> 
+                                    Decline <i class="far fa-times-circle"></i>
+                                </button>
+                            </div>
+                        </h4>
+                    </li>
+                </ul>
+            </div>
+        </div>        
+    </div>
+
+    <!--Add a new Friend -->
+    <div class="container">
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="email"><strong>Add a Friend:</strong> </label>
+                <div class="input-group">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address...">      
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success" style="border-radius: 2px;">Send Request <i class="fas fa-user-plus"></i></button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <br>
+
+    <div class="container" id="username" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" style="background-color: red" id="userheading" data-toggle="collapse" data-parent="useraccordion"
+            data-target="#userID" aria-expanded="true" aria-controls="restaurantID">
+                <h5 class="mb-0 d-flex justify-content-between" style="color: white">  Friend Name            
+                    <span class="badge badge-success"> Amount: 10</span>
+                </h5>
+            </div> <!-- card header-->
+
+            <div id="userID" class="collapse show" role="tabpanel"
+            aria-labelledby="userheading">
+                <div class="card-block container" >
+                    <div class="row" style="padding-top: 20px;">
+                        <div class="container">
+                            <table class="table table-striped ">
+                                <tbody>
+                                    <tr class="table-warning">
+                                        <td style="text-align: center; margin-top: 7px;"> <h5><strong>Restaurant name is here</strong> <span class="badge badge-warning">8.5</span> </h5></td>
+                                        <td style="text-align: center"> 
+                                            <div class="d-flex flex-wrap">
+                                                <button type="button" class="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
+                                                        Add <i class="fas fa-plus-circle"></i>
+                                                </button> 
+                                                <button type="button" class="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
+                                                        Location <i class="fas fa-map-marker-alt"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
+                                                        Rate <i class="far fa-list-alt"></i>
+                                                </button> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; margin-top: 7px;"> <h5><strong>Restaurant name is here</strong> <span class="badge badge-warning">8.5</span> </h5></td>
+                                        <td style="text-align: center"> 
+                                            <div class="d-flex flex-wrap">
+                                                <button type="button" class="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
+                                                        Add <i class="fas fa-plus-circle"></i>
+                                                </button> 
+                                                <button type="button" class="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
+                                                        Location <i class="fas fa-map-marker-alt"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
+                                                        Rate <i class="far fa-list-alt"></i>
+                                                </button> 
+                                            </div>
+                                        </td>                                    
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <td style="text-align: center; margin-top: 7px;"> <h5><strong>Restaurant name is here</strong> <span class="badge badge-warning">8.5</span> </h5></td>
+                                        <td style="text-align: center"> 
+                                            <div class="d-flex flex-wrap">
+                                                <button type="button" class="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
+                                                        Add <i class="fas fa-plus-circle"></i>
+                                                </button> 
+                                                <button type="button" class="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
+                                                        Location <i class="fas fa-map-marker-alt"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
+                                                        Rate <i class="far fa-list-alt"></i>
+                                                </button> 
+                                            </div>
+                                        </td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!--table row-->
+                </div> <!--card-block-->
+            </div> <!-- collapse -->
+
+        </div> <!--card-->
+    </div>
+   
+
+
+
+
+    <div class="modal fade" id="add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #28a745;">
+                    <h5 class="modal-title" style="color: white">Add</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><!--modal-header-->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="d-flex flex-column align-items-center mt-4 mb-2">
+                            <h4>Shack Shack 
+                            </h4>
+                            <h5>123 Frank Street</h5>
+                            <h5><span class="badge badge-pill badge-success">8.5</span></h5>
+                        </div>
+                    </div>
+                </div><!--modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" 
+                        data-dismiss="modal">Confirm</button>
+                </div> <!--modal footer-->
+            </div><!--modal-content-->
+        </div> <!-- modal-dialog -->
+    </div> <!--Add modal -->
+
+    <div class="modal fade" id="map">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #ffc107">
+                        <h5 class="modal-title">Hello</h5>
+                        <button type="button" class="close" data-dismiss="modal" 
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div><!--modal-header-->
+                    <div class="modal-body">
+                         
+                    </div> <!-- modal body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" 
+                        data-dismiss="modal">Done</button>
+                    </div> <!-- modal footer-->
+                </div> <!-- modal content-->
+            </div> <!-- modal dialog-->
+        </div> <!-- modal fade-->
+
+    <div class="modal fade" id="rate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #dc3545">
+                    <h5 class="modal-title" style="color: white">Rate</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><!--modal-header-->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="d-flex flex-column align-items-center pb-2 mt-4 mb-2 border-bottom">
+                            <h4>Shack Shack 
+                            </h4>
+                            <h5>123 Frank Street</h5>
+                        </div>
+                    </div> 
+                    <div class="container">
+                        <form action="#">
+                            <div class="form-group">
+                                <label for="score"><strong>Score:</strong></label>
+                                <select class="form-control" name="score" id="score">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>    
+                                </select>
+                            </div>
+                           <div class="form-group">
+                                <label for="review"><strong>Review:</strong></label>
+                                <textarea class="form-control" name="review" id="review" cols="20" rows="6" placeholder="Voice your critical critique of this establishment here..."></textarea>    
+                           </div>
+                        </form>
+                    </div>                 
+                </div><!--modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                </div>
+            </div><!--modal-content-->
+        </div> <!-- modal-dialog -->
+    </div>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>        
+
+</body>
+</html>
