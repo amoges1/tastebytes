@@ -9,7 +9,7 @@ class Recsframe extends Component {
 
         let recsload;
         if (recs) {
-            recsload = Object.keys(recs).map(key => <Recs index={key} key={key} frens={recs[key]} />)
+            recsload = Object.keys(recs).map(key => <Recs index={key} key={key} recs={recs[key]} />)
         }
         return (
             <div className="container border-bottom mt-20" style={{ marginTop: "20px"}}>

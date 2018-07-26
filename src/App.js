@@ -7,10 +7,9 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Resitems from './components/Resitems';
-
-import Friendframe from './components/Friendframe';
 import Recsframe from './components/Recsframe';
+import Resframe from './components/Resframe';
+import Friendframe from './components/Friendframe';
 
 import Search from './components/Search';
 import Sresult from './components/Sresult';
@@ -62,18 +61,15 @@ class App extends Component {
   render() {
     const user1 = this.state.user1;
     
-    let recsload;
-    let resload;
-    let freqload;
-    let frenload;
-    if (user1.restaurants) {
-      resload = Object.keys(user1.restaurants).map(key => <Resitems index={key} key={key} res={user1.restaurants[key]}/>) 
+    // let resload;
+    
+    // if (user1.restaurants) {
+    //   resload = Object.keys(user1.restaurants).map(key => <Resitems index={key} key={key} res={user1.restaurants[key]}/>) 
       
 
-
-    } else {
-      //resload="<h3>Get Food </h3>";
-    }
+    // } else {
+    //   //resload="<h3>Get Food </h3>";
+    // }
     // console.log("this is user1: ", user1);
     
     return (
@@ -97,22 +93,8 @@ class App extends Component {
 
         <Recsframe recs={user1.recommendations} />
 
-        {/* <div className="container border-bottom mt-20" style={{ marginTop: "20px"}}>
-          <h6 className="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#recs">
-              New Recommendations!
-              <span className="badge badge-warning">{user1.recommendations ? user1.recommendations.length : null} </span>
-          </h6>
-          <div id="recs" className="collapse">
-          {
-            recsload
-          }
-          </div>
-        </div> */}
-        <div className="container" style={{paddingTop: "20px"}} id="restaurantaccordion" role="tablist" aria-multiselectable="true">
-         {
-           resload
-         }
-        </div> 
+        <Resframe res={user1.restaurants}/>
+
         <Share/>
         <Map/>
         <Delete/>
@@ -131,9 +113,6 @@ class App extends Component {
             <Sresult/>
           </div>
         </div>
-
-
-        
       </div>
     );
   }
