@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Sresult from './Sresult';
 class Search extends Component {
   constructor() {
       super();
@@ -9,6 +9,7 @@ class Search extends Component {
   }
   render() {
     return (
+        <div>
         <div className="container" style={{paddingTop: "20px", textAlign: "center"}}>
        
         <div className="container border-bottom">
@@ -38,6 +39,14 @@ class Search extends Component {
             </form>  
         </div>
     </div>
+    <div className="container" style={{marginTop: "20px"}}>
+        <div className="d-flex flex-row flex-wrap">
+            <Sresult/>
+            <Sresult/>
+            <Sresult/>
+            </div>
+        </div>
+     </div>
     );
   }
   

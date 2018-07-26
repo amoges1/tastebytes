@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 
-import Login from './components/Login';
 import Navitems from './components/Navitems';
 import {
   BrowserRouter as Router,
-  Route,
+  Route, Switch
 } from 'react-router-dom';
 
-import Recsframe from './components/Recsframe';
-import Resframe from './components/Resframe';
+import Home from './components/Home';
 import Friendframe from './components/Friendframe';
 
 import Search from './components/Search';
-import Sresult from './components/Sresult';
 
 import Share from './modals/Share';
 import Map from './modals/Map';
 import Delete from './modals/Delete';
 
 import base from './base';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -73,47 +69,26 @@ class App extends Component {
     // console.log("this is user1: ", user1);
     
     return (
-     
+      <Router>
+
       <div className="App">
-        <header className="App-header">
-         
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-          {/* <button className="btn btn-success" onClick={ () => this.authenticate('facebook')}>Login with FB </button> */}
-
-        </header>
-        {/* <Navitems username={this.state.uid ? this.state.uid.split(" ")[0] : 'Test'}/> */}
-        {/* <Router>
-          <Route path='/home' component={} />
-          <Route path='/recommendations' component={PirateDetail} />
-          <Route path='/search' component={PirateDetail} />
-        </Router> */}
-        {/* <Navitems username={this.state.uid ? this.state.uid.split(" ")[0] : 'Test'}/> */}
-        {/* <Login />  */}
-
-        <Recsframe recs={user1.recommendations} />
-
-        <Resframe res={user1.restaurants}/>
+     
+        <Navitems username={this.state.uid ? this.state.uid.split(" ")[0] : 'Test'}/>
+        <Switch>
+          <Route path='/' render= { () => <Home res={user1.restaurants} recs={user1.recommendations}/> } exact />
+          <Route path='/friends' render={ () => <Friendframe frequests={user1.frequests} friends={user1.friends}/>} exact />
+          <Route path='/search' component={Search} exact/>
+        </Switch>
+        
 
         <Share/>
         <Map/>
         <Delete/>
 
-        <br />
-
-      <Friendframe frequests={user1.frequests} friends={user1.friends}/>
-
-        <br />
-
-        <Search/>
-        <div className="container" style={{marginTop: "20px"}}>
-          <div className="d-flex flex-row flex-wrap">
-            <Sresult/>
-            <Sresult/>
-            <Sresult/>
-          </div>
-        </div>
+        
       </div>
+      </Router>
+
     );
   }
 

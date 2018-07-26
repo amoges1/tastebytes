@@ -10,7 +10,7 @@ class Navitems extends Component {
     return (
         <nav className="navbar navbar-dark navbar-expand-sm" style={{backgroundColor:'red'}}>
             <div className="container">
-                <div className="navbar-brand"> TasteBytes</div>
+                <Link to="/" className="navbar-brand navLink"> TasteBytes</Link>
                 
                 <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#myNav" aria-controls="myNav" 
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -19,9 +19,9 @@ class Navitems extends Component {
                 
                 <div className="collapse navbar-collapse" id="myNav">
                     <div className="navbar-nav ml-auto">
-                        <Link className="nav-item nav-link navLink">Home</Link>
-                        <Link className="nav-item nav-link navLink">Friends</Link>
-                        <Link className="nav-item nav-link navLink">Search</Link>
+                        <Link to="/" className="nav-item nav-link navLink">Home</Link>
+                        <Link to="/friends" className="nav-item nav-link navLink">Friends</Link>
+                        <Link to="/search" className="nav-item nav-link navLink">Search</Link>
                         <div className="dropdown">
                             <a className="nav-item nav-link dropdown-toggle" 
                                 id="userDropdown" data-toggle="dropdown"
