@@ -57,17 +57,6 @@ class App extends Component {
   render() {
     const user1 = this.state.user1;
     
-    // let resload;
-    
-    // if (user1.restaurants) {
-    //   resload = Object.keys(user1.restaurants).map(key => <Resitems index={key} key={key} res={user1.restaurants[key]}/>) 
-      
-
-    // } else {
-    //   //resload="<h3>Get Food </h3>";
-    // }
-    // console.log("this is user1: ", user1);
-    
     return (
       <Router>
 

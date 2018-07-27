@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import Sresult from './Sresult';
+import axios from 'axios';
+
+
 class Search extends Component {
   constructor() {
       super();
+      this.getPlaces = this.getPlaces.bind(this);
       this.state = {
-          position: {}
+          position: {},
+          choices : {}
       }
   }
   render() {
+
     return (
         <div>
         <div className="container" style={{paddingTop: "20px", textAlign: "center"}}>
@@ -34,16 +40,19 @@ class Search extends Component {
                     </label>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-success mt-2">Search <i className="fas fa-search"></i></button>
+                    <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}>Search <i className="fas fa-search"></i></button>
                 </div>
             </form>  
+            </div>              
         </div>
-    </div>
-    <div className="container" style={{marginTop: "20px"}}>
-        <div className="d-flex flex-row flex-wrap">
-            <Sresult/>
-            <Sresult/>
-            <Sresult/>
+        <div className="container" style={{marginTop: "20px"}}>
+            <div className="d-flex flex-row flex-wrap">
+             {
+                 this.state.choices ? 
+                    Object.keys(this.state.choices)
+                        .map(key => <Sresult key={key} index={key} result={this.state.choices[key]}/>) 
+                    : null
+             }
             </div>
         </div>
      </div>
@@ -53,37 +62,42 @@ class Search extends Component {
   getPlaces(e) {
     e.preventDefault();
 
-    // if (this.state.position) {
-    //     alert("Enable GPS Location on your Browser");
-    // } else {
-    
-        const lat = this.state.position.coords ? this.state.position.coords.latitude : null;
-        const long = this.state.position.coords ? this.state.position.coords.longitude : null;
-        if(lat && long) {
-            const term = this.term.value;
-            const yelpUrl = "https://api.yelp.com/v3/businesses/search?term=" + term + "&latitude=" + lat + "&longitude=" + long;
-            let myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer shnGznzM0y3L-q814lEgiU-tsQLoXaAvCxQKvlpMLPjzig_IIssjroIGl7HS3dixCNk-2rLVJpfO_5Bb-ZXa8p-UTWeyAg9mQCzjz3fNeqLcyvw8YQBI_73uEZVTW3Yx");
-          
-           
-
-        fetch(yelpUrl,{
-                header: myHeaders
+    const lat = this.state.position.coords ? this.state.position.coords.latitude : null;
+    const long = this.state.position.coords ? this.state.position.coords.longitude : null;
+    if(lat && long) {
+        const term = this.term.value;
+        const config = {
+            headers: {'Authorization': 'Bearer shnGznzM0y3L-q814lEgiU-tsQLoXaAvCxQKvlpMLPjzig_IIssjroIGl7HS3dixCNk-2rLVJpfO_5Bb-ZXa8p-UTWeyAg9mQCzjz3fNeqLcyvw8YQBI_73uEZVTW3Yx'},
+            params: {
+                term: term,
+                latitude: lat,
+                longitude: long
             }
-        ).then( res => console.log(res))
-        } else {
-            alert("Enable GPS Location on your Browswer and refresh twice?");
-        }
-        
-    // https://github.com/Yelp/yelp-fusion/tree/master/fusion/node}
-    
-    
+            };
 
-  
-    // alert(this.state.position.coords.latitude);
+            axios.get('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', config)
+            .then(response => {
+                let businesses = response.data.businesses;
+                let results = []
+                businesses.forEach(business => {
+                    let result = {
+                        name: business.name,
+                        image: business.image_url,
+                        rating: business.rating,
+                        address: business.location.display_address
+                    };
+                    results.push(result)            
+                });
+                this.setState({choices: results})
+        
+            });
+        } else {
+            alert("Enable GPS Location on your Browser");
+        }
+          
   }
 
-  componentDidMount() {
+  componentWillMount() {
       navigator.geolocation.getCurrentPosition(
           (position => {this.setState({position})}
         )
