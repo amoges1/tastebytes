@@ -66,13 +66,13 @@ class App extends Component {
         <Switch>
           <Route path='/' render= { () => <Home res={user1.restaurants} recs={user1.recommendations}/> } exact />
           <Route path='/friends' render={ () => <Friendframe frequests={user1.frequests} friends={user1.friends}/>} exact />
-          <Route path='/search' component={Search} exact/>
+          <Route path='/search' render={ () => <Search res={user1.restaurants} />} exact/>
         </Switch>
         
 
-        <Share/>
+        {/* <Share/>
         <Map/>
-        <Delete/>
+        <Delete/> */}
 
         
       </div>
@@ -88,7 +88,7 @@ class App extends Component {
       state: 'user1'
     })
   }
-
+ 
   componentWillUmount() {
     base.removeBinding(this.ref)
   }
