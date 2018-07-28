@@ -72,15 +72,12 @@ class App extends Component {
           <Route path='/search' render={ () => <Search res={user1.restaurants} />} exact/>
         </Switch>
         
-
-        {/* <Share/>
+        <Share/>
         <Map/>
-<<<<<<< HEAD
+
         <Delete/>
         <Signup/>
-=======
-        <Delete/> */}
->>>>>>> 4ba37135451c8dd66efabf269bf0298a855d0b5a
+        <Delete/>
 
         
       </div>
