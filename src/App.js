@@ -6,11 +6,13 @@ import {
   Route, Switch
 } from 'react-router-dom';
 
+import Login from './components/Login';
 import Home from './components/Home';
 import Friendframe from './components/Friendframe';
 
 import Search from './components/Search';
 
+import Signup from './modals/Signup';
 import Share from './modals/Share';
 import Map from './modals/Map';
 import Delete from './modals/Delete';
@@ -64,15 +66,21 @@ class App extends Component {
      
         <Navitems username={this.state.uid ? this.state.uid.split(" ")[0] : 'Test'}/>
         <Switch>
-          <Route path='/' render= { () => <Home res={user1.restaurants} recs={user1.recommendations}/> } exact />
+          <Route path='/' component= { Login } exact />
+          <Route path='/home' render= { () => <Home res={user1.restaurants} recs={user1.recommendations}/> } exact />
           <Route path='/friends' render={ () => <Friendframe frequests={user1.frequests} friends={user1.friends}/>} exact />
-          <Route path='/search' component={Search} exact/>
+          <Route path='/search' render={ () => <Search res={user1.restaurants} />} exact/>
         </Switch>
         
 
-        <Share/>
+        {/* <Share/>
         <Map/>
+<<<<<<< HEAD
         <Delete/>
+        <Signup/>
+=======
+        <Delete/> */}
+>>>>>>> 4ba37135451c8dd66efabf269bf0298a855d0b5a
 
         
       </div>
@@ -88,7 +96,7 @@ class App extends Component {
       state: 'user1'
     })
   }
-
+ 
   componentWillUmount() {
     base.removeBinding(this.ref)
   }

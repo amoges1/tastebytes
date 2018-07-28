@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome Stylings -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+<body>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: red">
+        <div class="container">
+
+            <div class="navbar-brand"> TasteBytes</div>
+
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#myNav" aria-controls="myNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                
+        </div>
+    </nav>
+    <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+    <div class="container text-center w-50">
+            <form>
+                <!-- <h1 class="h3 mb-3 font-weight-normal">Start Here</h1> -->
+                <div class="form-group">
+                    <label for="inputEmail" class="sr-only">Email address</label>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">        
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                </div>
+                <div class="btn-group">
+                        <button class="btn btn-lg btn-primary " type="submit">Login</button>
+                        <button class="btn btn-lg btn-primary " type="submit">Continue with Facebook</button>
+            
+                        <button class="btn btn-lg btn-secondary " data-toggle="modal" data-target="#signup">Sign Up</button>
+        
+                </div>
+            </form>
+        </div>
+    <div class="container text-center w-75 mt-3">
+        <h3 class="border-bottom">Join the Fun!</h3>
+        <div class="row">
+            <div class="col-md-6 mb-3 mt-3">
+                <h3><i class="fas fa-home"></i> </h3>
+                <h4><em>Create with Yelp</em></h4>
+                <h5>
+                    Create your own list of restaurants, cafes and more to try after searching for places with the help of Yelp.
+                </h5>
+            </div>
+            <div class="col-md-6 mb-3 mt-3">
+                <h3><i class="fas fa-user-friends"></i> </h3>
+                <h4><em>Share with Friends</em></h4>
+                <h5>After building your list, share it with your friends. See what places you may have common and head there together.</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3 mt-3">
+                <h3><i class="fas fa-search"></i> </h3>
+                <h4><em>Recommend Locations</em></h4>
+                <h5>You and your friends may have different tastes in locations to visit so feel free to recommend some places from your own list.</h5>
+            </div>
+            <div class="col-md-6 mb-3 mt-3">
+                <h3><i class="fas fa-list-ul"></i></h3>
+                <h4> <em>Rate and Comment</em></h4>
+                <h5>Review your friends' lists and comment on their picks - your opinion may finally push them to check out a place so let them know.</h5>
+            </div>
+        </div>
+    </div>
+
+  
+
+    <!-- The Modal -->
+<div class="modal" id="signup">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header bg-danger">
+          <h4 class="modal-title text-white">Create Account</h4>
+          <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="container">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                        <label for="email"><strong>Username:</strong></label>
+                        <input type="email" class="form-control" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><strong>Email address:</strong></label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd"><strong>Password:</strong></label>
+                        <input type="password" class="form-control" id="pwd">
+                    </div>
+                </form>
+            </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Sign Up</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" 
+        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+      </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>        
+
+</body>
+</html>

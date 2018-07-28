@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Addfriend extends Component {
   render() {
     return (
-        <div className="container">
+        <div className="container" data-aos="fade-left"  data-aos-duration="1000">
             <form>
                 <div className="form-group">
                     <label htmlFor="email"><strong>Add a Friend:</strong> </label>

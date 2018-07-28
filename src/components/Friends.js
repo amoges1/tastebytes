@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 
 class Friends extends Component {
-
-  render() {
+    render() {
     const friend = this.props.frens;
     // console.log("this is friend: ", friend);
-    
+
     return (
-
-        <div>
-          
-
-            <div className="container" id={`${this.props.index}`} role="tablist" aria-multiselectable="true">
+        <div >
+            <div className="container" style={{marginBottom: "10px"}}  role="tablist" aria-multiselectable="true" data-aos="fade-up"  data-aos-duration="1000">
                 <div className="card">
                     <div className="card-header" style={{backgroundColor: "red"}} id="userheading" data-toggle="collapse" data-parent="useraccordion"
-                    data-target="#userID" aria-expanded="true" aria-controls="restaurantID">
+                    data-target={`#${this.props.index}`} aria-expanded="true" aria-controls="restaurantID">
                         <h5 className="mb-0 d-flex justify-content-between" style={{color:"white"}}>  {friend}           
                             <span className="badge badge-success"> Amount: 10</span>
                         </h5>
@@ -84,7 +80,7 @@ class Friends extends Component {
         </div>
     </div>
     );
-  }
+    }
 }
 
 export default Friends;

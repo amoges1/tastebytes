@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import Sresult from './Sresult';
 import axios from 'axios';
-
+import base from '../base';
 
 class Search extends Component {
   constructor() {
       super();
       this.getPlaces = this.getPlaces.bind(this);
+      this.addPlace = this.addPlace.bind(this);
+
       this.state = {
           position: {},
-          choices : {}
+          choices : {},
+          restaurants: {}
       }
   }
   render() {
 
     return (
-        <div>
+    <div>
         <div className="container" style={{paddingTop: "20px", textAlign: "center"}}>
        
         <div className="container border-bottom">
@@ -50,7 +53,7 @@ class Search extends Component {
              {
                  this.state.choices ? 
                     Object.keys(this.state.choices)
-                        .map(key => <Sresult key={key} index={key} result={this.state.choices[key]}/>) 
+                        .map(key => <Sresult key={key} index={key} result={this.state.choices[key]} addPlace={this.addPlace}/>) 
                     : null
              }
             </div>
@@ -97,7 +100,38 @@ class Search extends Component {
           
   }
 
+  addPlace(e, name, address){
+    e.preventDefault();
+    let contain = false;
+    console.log(this.state.restaurants);
+    if(!this.state.restaurants) {
+        return;
+    }
+    this.state.restaurants.forEach(res => {
+        if(res.name === name && res.address === address) {
+            contain = true;
+            console.log("TRUEEE!");
+            
+        }
+    });
+    if (!contain) {
+        base.push('users/user3/restaurants/', {
+            data: {name: name, address: address.join(' '), rating: 0},
+            then(err){
+              if(!err) { 
+                  alert(`${name} on ${address.join(' ')} is added to your list.`);
+               }
+            }
+          });
+    } else {
+        alert(`${name} at ${address} is already added to your list.`)
+    }
+  }
+
   componentWillMount() {
+      this.setState({restaurants: this.props.res});
+      console.log('Will Mount now: ', this.props.res);
+      
       navigator.geolocation.getCurrentPosition(
           (position => {this.setState({position})}
         )

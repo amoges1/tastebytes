@@ -19,7 +19,7 @@ class Navitems extends Component {
                 
                 <div className="collapse navbar-collapse" id="myNav">
                     <div className="navbar-nav ml-auto">
-                        <Link to="/" className="nav-item nav-link navLink">Home</Link>
+                        <Link to="/home" className="nav-item nav-link navLink">Home</Link>
                         <Link to="/friends" className="nav-item nav-link navLink">Friends</Link>
                         <Link to="/search" className="nav-item nav-link navLink">Search</Link>
                         <div className="dropdown">
