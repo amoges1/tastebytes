@@ -14,27 +14,24 @@ class Signup extends Component {
     
             <div className="modal-body">
                 <div className="container">
-                    <form action="/action_page.php">
+                    <form ref={ (input) => this.signupForm = input}
+                        onSubmit={(e) => this.props.signup(e)}>
                         <div className="form-group">
-                            <label for="email"><strong>Username:</strong></label>
-                            <input type="email" className="form-control" id="username" />
+                            <label htmlFor="email"><strong>Username:</strong></label>
+                            <input ref={ (input) => this.usernmae = input} type="text" className="form-control" />
                         </div>
                         <div className="form-group">
-                            <label for="email"><strong>Email address:</strong></label>
-                            <input type="email" className="form-control" id="email" />
+                            <label htmlFor="email"><strong>Email address:</strong></label>
+                            <input ref={ (input) => this.email = input} type="email" className="form-control" />
                         </div>
                         <div className="form-group">
-                            <label for="pwd"><strong>Password:</strong></label>
-                            <input type="password" className="form-control" id="pwd" />
+                            <label htmlFor="pwd"><strong>Password:</strong></label>
+                            <input ref={ (input) => this.password = input} type="password" className="form-control" />
                         </div>
+                        <button type="submit" className="btn btn-primary" >Sign Up</button>
                     </form>
                 </div>
             </div>
-    
-            <div className="modal-footer">
-            <button type="button" className="btn btn-primary" data-dismiss="modal">Sign Up</button>
-            </div>
-    
         </div>
         </div>
     </div>

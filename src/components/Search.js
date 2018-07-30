@@ -12,10 +12,17 @@ class Search extends Component {
       this.state = {
           position: {},
           choices : {},
-          restaurants: {}
+          progress: false
       }
   }
   render() {
+
+    let progress; 
+    if(this.state.progress) {
+       progress = <div className="progress"> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
+        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Loading</div></div>;
+    }
+    
 
     return (
     <div>
@@ -49,6 +56,9 @@ class Search extends Component {
             </div>              
         </div>
         <div className="container" style={{marginTop: "20px"}}>
+           {
+               progress
+           }
             <div className="d-flex flex-row flex-wrap">
              {
                  this.state.choices ? 
@@ -64,7 +74,8 @@ class Search extends Component {
   
   getPlaces(e) {
     e.preventDefault();
-
+    this.setState({ progress: true})
+    if(this.state.progress == false) { }
     const lat = this.state.position.coords ? this.state.position.coords.latitude : null;
     const long = this.state.position.coords ? this.state.position.coords.longitude : null;
     if(lat && long) {
@@ -89,9 +100,10 @@ class Search extends Component {
                         rating: business.rating,
                         address: business.location.display_address
                     };
-                    results.push(result)            
+                    results.push(result) 
+                    this.setState({choices: results, progress: false})           
                 });
-                this.setState({choices: results})
+                
         
             });
         } else {
@@ -102,36 +114,39 @@ class Search extends Component {
 
   addPlace(e, name, address){
     e.preventDefault();
-    let contain = false;
-    console.log(this.state.restaurants);
-    if(!this.state.restaurants) {
-        return;
-    }
-    this.state.restaurants.forEach(res => {
-        if(res.name === name && res.address === address) {
-            contain = true;
-            console.log("TRUEEE!");
-            
-        }
-    });
-    if (!contain) {
-        base.push('users/user3/restaurants/', {
-            data: {name: name, address: address.join(' '), rating: 0},
-            then(err){
-              if(!err) { 
-                  alert(`${name} on ${address.join(' ')} is added to your list.`);
-               }
+    
+    if(!this.props.user) {
+        base.post(`users/${this.props.user_id}/restaurants/0`, {
+            data: {name: name, address: address.join(' '), rating:0 }, then(err) {
+                if(err) { console.log(err);  } 
+                else { 
+                    alert(`${name} on ${address.join(' ')} is added to your list.`); 
+                }
             }
-          });
+        })
     } else {
-        alert(`${name} at ${address} is already added to your list.`)
+
+        let contain = false;
+    
+        this.props.user.restaurants.forEach(res => {
+            if(res.name === name && res.address === address.join(' ')) {
+                contain = true;                
+            }
+        });
+
+        if (!contain) {
+            base.database().ref(`users/${this.props.user_id}/restaurants/`)
+                .child(`${this.props.user.restaurants.length}`).set({
+                name: name, address: address.join(' '), rating: 0
+            });
+            alert(`${name} on ${address.join(' ')} is added to your list.`);
+        } else {
+            alert(`${name} at ${address} is already added to your list.`)
+        }
     }
   }
-
+  
   componentWillMount() {
-      this.setState({restaurants: this.props.res});
-      console.log('Will Mount now: ', this.props.res);
-      
       navigator.geolocation.getCurrentPosition(
           (position => {this.setState({position})}
         )

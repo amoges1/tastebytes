@@ -6,8 +6,17 @@ import Resframe from './Resframe';
 class Home extends Component {
 
   render() {
-    const res = this.props.res;
-    const recs = this.props.recs;
+    const user = this.props.user;
+    const res = this.props.user.restaurants;
+    const recs = this.props.user.recommendations;
+
+    if (!user) {
+      return (
+        <div>
+          <h5>User doesn't have restaurants or recommendations</h5>
+        </div>
+      )
+    }
     return (
       <div>
         <Recsframe recs={recs}/>

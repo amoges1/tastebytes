@@ -1,62 +1,32 @@
 import React, { Component } from 'react';
-import base from '../base';
 
 class Login extends Component {
 
-    constructor() {
-        super();
-        this.authenticate = this.authenticate.bind(this);
-        this.authHandler = this.authHandler.bind(this);
-        this.logout = this.logout.bind(this);
-        this.state = {
-          uid: {}
-        }
-      }
-     //facebook
-  authenticate(provider) {
-    console.log(`Trying ${provider}...`);
-    base.authWithOAuthPopup(provider, this.authHandler); //returns as err,authdata callback
-    
-  }
 
-  authHandler(err, authData) {
-    console.log(authData);    
-    if (err) { console.log(err); return}
-    this.setState( {uid: authData.user.displayName})
-  }
-
-  componentDidMount() {
-    base.onAuth((user) => {
-      this.authHandler(null, { user })
-    })
-  }
-
-  logout() {
-    base.unauth();
-    this.setState( {uid: null });
-  }
   render() {
     return (
       <div>
       <div className="container text-center w-50 mt-3">
-            <form>
+           
                  {/* <h1 className="h3 mb-3 font-weight-normal">Start Here</h1>  */}
                 <div className="form-group">
-                    <label for="inputEmail" className="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autofocus=""/>        
+                    <label htmlFor="inputEmail" className="sr-only">Email address</label>
+                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus=""/>        
                 </div>
                 <div className="form-group">
-                    <label for="inputPassword" className="sr-only">Password</label>
+                    <label htmlFor="inputPassword" className="sr-only">Password</label>
                     <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" />
                 </div>
-                <div className="btn-group">
-                        <button className="btn btn-lg btn-primary " type="submit">Login</button>
-                        <button className="btn btn-lg btn-primary " type="submit">Continue with Facebook</button>
-            
-                        <button className="btn btn-lg btn-secondary " data-toggle="modal" data-target="#signup">Sign Up</button>
-        
+                <div className="btn-group d-flex mb-3">
+                    <button className="btn  btn-primary w-100" type="submit">Login</button>
+                    <button className="btn  btn-secondary w-100" data-toggle="modal" data-target="#signup">Sign Up</button>
                 </div>
-            </form>
+                <button className="btn btn-info" onClick={ () => this.props.authenticate('facebook')}>Continue with Facebook</button>
+                <button className="btn btn-info" onClick={ () => this.props.logout()}>Logout</button>
+
+                {/* <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" 
+                data-auto-logout-link="false" data-use-continue-as="false" onClick={ () => this.props.authenticate('facebook')}></div> */}
+           
         </div>
       <div className="container text-center w-75 mt-3">
         <h3 className="border-bottom">Join the Fun!</h3>
@@ -87,18 +57,17 @@ class Login extends Component {
             </div>
         </div>
     </div>
+    <header className="Login-header">
+          <h1>Welcome to Tastebytes</h1>
+        </header>
+        <p className="App-intro">
+          Join the fun now!
+        </p>
+        
     </div>
-      // <div className="Login">
-      //   <header className="Login-header">
-      //     <h1>Welcome to Tastebytes</h1>
-      //   </header>
-      //   <p className="App-intro">
-      //     Join the fun now!
-      //   </p>
-      //   <div className="fb-login-button" data-max-rows="1" data-size="large" 
-      //   data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" 
-      //   data-use-continue-as="false" onClick={this.authenticate('facebook')}></div>
-      // </div>
+     
+       
+     
     );
   }
 }

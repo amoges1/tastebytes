@@ -24,74 +24,99 @@ class App extends Component {
 
   constructor() {
     super();
-    // this.authenticate = this.authenticate.bind(this);
-    // this.authHandler = this.authHandler.bind(this);
-    // this.logout = this.logout.bind(this);
+    this.authenticate = this.authenticate.bind(this);
+    this.authHandler = this.authHandler.bind(this);
+    this.signup = this.signup.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
-      user1: {}
+      user: {},
+      name: null,
+      email: null,
+      user_id: null
     }
   }
-  // //facebook
-  // authenticate(provider) {
-  //   console.log(`Trying ${provider}...`);
-  //   base.authWithOAuthPopup(provider, this.authHandler); //returns as err,authdata callback
+
+  //facebook
+  authenticate(provider) {
+    console.log(`1. Trying ${provider}...`);
+    base.authWithOAuthPopup(provider, this.authHandler); //returns as err,authdata callback
     
-  // }
+  }
 
-  // authHandler(err, authData) {
-  //   console.log(authData);
-  //   console.log(authData.user.displayName);
+  authHandler(err, authData) {
+    console.log("2. authHandler");
+    console.log(authData);
     
-  //   if (err) { console.log(err); return}
-  //   this.setState( {uid: authData.user.displayName})
-  // }
+    if (err) { console.log(err); return }
+    if(authData) {
+      this.setState( {name: authData.user.displayName});
+      this.setState( {email: authData.user.email});
+     
+    }    
+  }
 
-  // componentDidMount() {
-  //   base.onAuth((user) => {
-  //     this.authHandler(null, { user })
-  //   })
-  // }
+  signup(e) {
+    e.preventDefault();
+    console.log(this.email.value);
+    console.log(this.password.value);
+    
+    
+    base.createUser({
+      email: this.email.value,
+      password: this.password.value
+    }, this.authHandler);
+  }
 
-  // logout() {
-  //   base.unauth();
-  //   this.setState( {uid: null });
-  // }
+  logout() {
+    base.unauth();
+    console.log("Logged out");
+    this.setState( {user: {}, email: null, user_id: null, name:null });
+  }
+
+  componentDidMount() {
+    console.log("3. onAuth");
+    
+    base.onAuth((user) => {
+     
+      // this.authHandler(null, { user })
+      if(user) { 
+        this.setState({user_id: user.uid}  ); 
+        this.ref = base.syncState(`users/${this.state.user_id}`, {
+          context: this,
+          state: 'user',
+          isNullable: true
+        })
+      }
+    })
+  }
+
+ 
   render() {
-    const user1 = this.state.user1;
     
     return (
       <Router>
 
-      <div className="App">
-     
-        <Navitems username={this.state.uid ? this.state.uid.split(" ")[0] : 'Test'}/>
-        <Switch>
-          <Route path='/' component= { Login } exact />
-          <Route path='/home' render= { () => <Home res={user1.restaurants} recs={user1.recommendations}/> } exact />
-          <Route path='/friends' render={ () => <Friendframe frequests={user1.frequests} friends={user1.friends}/>} exact />
-          <Route path='/search' render={ () => <Search res={user1.restaurants} />} exact/>
-        </Switch>
-        
-        <Share/>
-        <Map/>
+        <div className="App">
+      
+          <Navitems name={this.state.name} logout={this.logout}/>
+          <Switch>
+            <Route path='/' render= { () =>  <Login authenticate={this.authenticate} logout={this.logout} signup={this.signup} /> } exact />
+            <Route path='/home' render= { () => <Home user={this.state.user}/> } exact />
+            <Route path='/friends' render={ () => <Friendframe user={this.state.user} />} exact />
+            <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
+          </Switch>
+          
+          <Share/>
+          <Map/>
 
-        <Delete/>
-        <Signup/>
-        <Delete/>
-
-        
-      </div>
+          <Delete/>
+          <Signup/>
+          <Delete/>
+          
+        </div>
       </Router>
 
     );
-  }
-
-  
-  componentWillMount(){
-    this.ref = base.syncState(`users/user3`, {
-      context: this,
-      state: 'user1'
-    })
   }
  
   componentWillUmount() {

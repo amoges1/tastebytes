@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Navitems extends Component {
   render() {
-    const username = this.props.username;
+    const username = this.props.name ? this.props.name.split(" ")[0] : 'Test';
     // console.log(username);
     
     return (
@@ -28,7 +28,7 @@ class Navitems extends Component {
                             aria-haspopup="true" aria-expanded="false" href="#user">{username}</a>
                             
                             <div className="dropdown-menu" aria-labelledby="userDropdown">
-                                <a className="dropdown-item" href="#logout">Logout</a>
+                                <a className="dropdown-item" href="#logout" onClick={this.props.logout}>Logout</a>
                             </div>    
                         </div>
                     </div> 

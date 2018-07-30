@@ -6,8 +6,15 @@ import Friends from './Friends';
 class Friendframe extends Component {
 
     render() {
-        const frequests = this.props.frequests;
-        const friends = this.props.friends;
+        if(!this.props.user) {
+            return (
+                <div>
+                  <h5>User doesn't have friends or friend requests</h5>
+                  </div>
+              )
+        }
+        const frequests = this.props.user.frequests;
+        const friends = this.props.user.friends;
 
         let freqload, frenload;
         if (frequests && friends) {
