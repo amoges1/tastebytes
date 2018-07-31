@@ -17,9 +17,9 @@ class Search extends Component {
   }
   render() {
 
-    let progress; 
+    let progressbar; 
     if(this.state.progress) {
-       progress = <div className="progress"> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
+       progressbar = <div className="progress"> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
         role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Loading</div></div>;
     }
     
@@ -57,7 +57,7 @@ class Search extends Component {
         </div>
         <div className="container" style={{marginTop: "20px"}}>
            {
-               progress
+               progressbar
            }
             <div className="d-flex flex-row flex-wrap">
              {
@@ -75,7 +75,6 @@ class Search extends Component {
   getPlaces(e) {
     e.preventDefault();
     this.setState({ progress: true})
-    if(this.state.progress == false) { }
     const lat = this.state.position.coords ? this.state.position.coords.latitude : null;
     const long = this.state.position.coords ? this.state.position.coords.longitude : null;
     if(lat && long) {
@@ -98,7 +97,8 @@ class Search extends Component {
                         name: business.name,
                         image: business.image_url,
                         rating: business.rating,
-                        address: business.location.display_address
+                        address: business.location.display_address,
+                        reviews: []
                     };
                     results.push(result) 
                     this.setState({choices: results, progress: false})           
@@ -146,7 +146,7 @@ class Search extends Component {
     }
   }
   
-  componentWillMount() {
+  componentDidMount() {
       navigator.geolocation.getCurrentPosition(
           (position => {this.setState({position})}
         )

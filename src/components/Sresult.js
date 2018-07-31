@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 
 
 class Sresult extends Component {
-    // constructor() {
-    //     super();
-    // }
+   
     render() {
         const result = this.props.result;
-        
-        
+         
         return ( 
             <div className="col-md-4 col-sm-6 mb-3" data-aos="fade-up"  data-aos-duration="2450"> 
                 <div className="card" style={{width:"14rem", margin:"auto"}}>

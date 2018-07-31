@@ -8,19 +8,26 @@ class Friendframe extends Component {
     render() {
         if(!this.props.user) {
             return (
-                <div>
-                  <h5>User doesn't have friends or friend requests</h5>
+                <div className="container mt-3">
+                  <h5> Add some friends to get started, {this.props.name.split(" ")[0]}!</h5>
+                  <AddFriend />
+
                   </div>
               )
         }
-        const frequests = this.props.user.frequests;
+
+        //create freq/friends from true/flase connected!!!!!
+        // const frequests = this.props.user.frequests;
         const friends = this.props.user.friends;
 
         let freqload, frenload;
-        if (frequests && friends) {
-            freqload = Object.keys(frequests).map(key => <Frequests index={key} key={key} freqs={frequests[key]} />);
-            frenload = Object.keys(friends).map(key => <Friends index={key} key={key} frens={friends[key]} />)
-        }
+            //filter friends vs friend requests
+        let frequestFilter = friends.filter(friend => friend.connected === false);
+        let friendFilter = friends.filter(friend => friend.connected === true);
+
+        freqload = Object.keys(frequestFilter).map(key => <Frequests index={key} key={key} freqs={frequestFilter[key].name} />);
+        frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friends[key].name} />)
+        
         return (
             <div>
                 <div className="container" style={{ paddingTop: "20px" }} data-aos="fade-right"  data-aos-duration="1000">
@@ -36,7 +43,7 @@ class Friendframe extends Component {
                         </ul>
                     </div>
                 </div>
-                <AddFriend />
+                <AddFriend user={this.props.user}/>
                 {
                     frenload
                 }

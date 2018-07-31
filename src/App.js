@@ -89,8 +89,9 @@ class App extends Component {
       }
     })
   }
-
+  
  
+
   render() {
     
     return (
@@ -102,7 +103,7 @@ class App extends Component {
           <Switch>
             <Route path='/' render= { () =>  <Login authenticate={this.authenticate} logout={this.logout} signup={this.signup} /> } exact />
             <Route path='/home' render= { () => <Home user={this.state.user}/> } exact />
-            <Route path='/friends' render={ () => <Friendframe user={this.state.user} />} exact />
+            <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} email={this.state.email} />} exact />
             <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
           </Switch>
           
