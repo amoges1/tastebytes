@@ -19,8 +19,8 @@ class Search extends Component {
 
     let progressbar; 
     if(this.state.progress) {
-       progressbar = <div className="progress"> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
-        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Loading</div></div>;
+       progressbar = <div className="progress mt-2" style={{height: "30px"}}> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
+        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <h4>Loading</h4></div></div>;
     }
     
 
@@ -117,7 +117,7 @@ class Search extends Component {
     
     if(!this.props.user) {
         base.post(`users/${this.props.user_id}/restaurants/0`, {
-            data: {name: name, address: address.join(' '), rating:0 }, then(err) {
+            data: {name: name, address: address.join(' '), rating:0, added: true }, then(err) {
                 if(err) { console.log(err);  } 
                 else { 
                     alert(`${name} on ${address.join(' ')} is added to your list.`); 
@@ -137,7 +137,7 @@ class Search extends Component {
         if (!contain) {
             base.database().ref(`users/${this.props.user_id}/restaurants/`)
                 .child(`${this.props.user.restaurants.length}`).set({
-                name: name, address: address.join(' '), rating: 0
+                name: name, address: address.join(' '), rating: 0, added: true
             });
             alert(`${name} on ${address.join(' ')} is added to your list.`);
         } else {

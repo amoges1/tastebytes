@@ -25,7 +25,7 @@ class Friendframe extends Component {
         let frequestFilter = friends.filter(friend => friend.connected === false);
         let friendFilter = friends.filter(friend => friend.connected === true);
 
-        freqload = Object.keys(frequestFilter).map(key => <Frequests index={key} key={key} freqs={frequestFilter[key].name} />);
+        freqload = Object.keys(frequestFilter).map(key => <Frequests index={key} key={key} freqs={frequestFilter[key]} user={this.props.user}/>);
         frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friends[key].name} />)
         
         return (
@@ -43,7 +43,7 @@ class Friendframe extends Component {
                         </ul>
                     </div>
                 </div>
-                <AddFriend user={this.props.user}/>
+                <AddFriend user={this.props.user} user_id={this.props.user_id}/>
                 {
                     frenload
                 }

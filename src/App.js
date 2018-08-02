@@ -78,7 +78,7 @@ class App extends Component {
     
     base.onAuth((user) => {
      
-      // this.authHandler(null, { user })
+      this.authHandler(null, { user })
       if(user) { 
         this.setState({user_id: user.uid}  ); 
         this.ref = base.syncState(`users/${this.state.user_id}`, {
@@ -103,7 +103,7 @@ class App extends Component {
           <Switch>
             <Route path='/' render= { () =>  <Login authenticate={this.authenticate} logout={this.logout} signup={this.signup} /> } exact />
             <Route path='/home' render= { () => <Home user={this.state.user}/> } exact />
-            <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} email={this.state.email} />} exact />
+            <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
             <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
           </Switch>
           
