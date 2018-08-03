@@ -9,10 +9,10 @@ class Home extends Component {
   
   render() {
    
-    if (!this.props.user) {
+    if (!this.props.user || !this.props.user.restaurants) {
       return (
         <div className="container mt-3">
-          <h5>Add some have restaurants, {this.props.name}!</h5>
+          <h5>Add some restaurants, {this.props.name}!</h5>
         </div>
       )
     }

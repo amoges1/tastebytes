@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Navitems extends Component {
   render() {
-    const username = this.props.name ? this.props.name.split(" ")[0] : 'Test';
+    const username = this.props.name ? this.props.name.split(" ")[0] : 'Welcome';
     // console.log(username);
     
     return (

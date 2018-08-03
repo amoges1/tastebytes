@@ -24,6 +24,7 @@ class Addfriend extends Component {
             let friendExists = false;
             let sent = false;
             let friend_key;
+            let total_friends;
             //check database for user
             users.forEach(friend => {
                 friend_key = friend.key;
@@ -37,7 +38,7 @@ class Addfriend extends Component {
                     
                     friendExists = true;
                     console.log("This is the friend key", friend.key);
-
+                    total_friends = friend.total_friends;
                     //Friend has no friends/frequests
                     if(friend.friends) {
                          //check if friend has me
@@ -64,14 +65,19 @@ class Addfriend extends Component {
                     
                         //add me to desired friend
                         if(!friend.friends) {
-                            base.post(`users/${friend.key}/friends/0`, {
-                                data: { key: friend_key, name: this.props.user.username, email: this.props.user.email, connected: false  }, then(err) {
-                                    if(err) { console.log(err);  } 
-                                }
-                            })
+                            console.log("tHESE ARE THE VALUES", friend_key, this.props.name, this.props.email);
+                            let total_friends = total_friends ? total_friends : 0;
+                            base.database().ref(`users/${friend.key}/friends/`).child(total_friends)
+                            .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false, total_friends: total_friends }) 
+                            
+                            // base.post(`users/${friend.key}/friends/`, {
+                            //     data: { key: friend_key, name: this.props.name, email: this.props.email, connected: false  }, then(err) {
+                            //         if(err) { console.log(err);  } 
+                            //     }
+                            // })
                         } else {
                             base.database().ref(`users/${friend.key}/friends/`).child(`${friend.friends.length}`)
-                            .set({ key: friend_key, name: this.props.user.username, email: this.props.user.email, connected: false }) 
+                            .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false }) 
                         }
                        
                         alert(`Friend request to ${friend.username} is sent!`); 

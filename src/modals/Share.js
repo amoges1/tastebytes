@@ -12,8 +12,10 @@ class Share extends Component {
         
         let res_name = document.getElementById("res_name").innerHTML;
         let res_address = document.getElementById("res_address").innerHTML;
-        let friend = document.getElementById("friend").value;
-       
+        let friend = document.getElementById("friend");
+        let friendkey = friend.options[friend.selectedIndex].getAttribute("key")
+        console.log("This is friend, ", friend);
+        
         //build object
         let shareRes = {
             name: res_name,
@@ -24,23 +26,23 @@ class Share extends Component {
         
         //share to friend
         //1. find friend key and lenght of restaurants.false by base user friend loop
-        let friend_id = false; 
-        let recs_length = false;
+        // let friend_id = false; 
+        // let recs_length = false;
         
-        //2. Check in friend's list if restaurant exists already
+        // //2. Check in friend's list if restaurant exists already
 
-        //3. add it if it doesn't exist
-        if(recs_length < 1) {
-            base.post(`users/${friend_id}/restaurants/0`, {
-                data: shareRes, then(err) {
-                    if(err) { console.log(err);  } 
-                }
-            })
-        } else {
-            base.database().ref(`users/${friend_id}/restaurants/`)
-            .child(`${recs_length}`).set(shareRes) 
-        }
-        console.log(shareRes, friend);
+        // //3. add it if it doesn't exist
+        // if(recs_length < 1) {
+        //     base.post(`users/${friend_id}/restaurants/0`, {
+        //         data: shareRes, then(err) {
+        //             if(err) { console.log(err);  } 
+        //         }
+        //     })
+        // } else {
+        //     base.database().ref(`users/${friend_id}/restaurants/`)
+        //     .child(`${recs_length}`).set(shareRes) 
+        // }
+        // console.log(shareRes, friend);
         
 
     }
@@ -48,7 +50,7 @@ class Share extends Component {
         let friendList = 
             <select name="friends" id="friend"> 
                 ${this.props.friends.map(
-                    friend => <option key={friend} index={friend.key} value={friend.name}> {friend.name} </option>)}
+                    friend => <option key={friend.key} index={friend.key} value={friend.name}> {friend.name} </option>)}
             </select>;
         
     return (

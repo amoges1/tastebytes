@@ -39,7 +39,6 @@ class App extends Component {
   authenticate(provider) {
     console.log(`1. Trying ${provider}...`);
     base.authWithOAuthPopup(provider, this.authHandler); //returns as err,authdata callback
-    
   }
 
   authHandler(err, authData) {
@@ -48,7 +47,10 @@ class App extends Component {
     
     if (err) { console.log(err); return }
     if(authData) {
-      this.setState( {name: authData.user.displayName});
+      authData.user.displayName 
+        ? this.setState( {name: authData.user.displayName}) 
+        : this.setState({ name: authData.user.email.split("@")[0]});
+      // this.setState( {name: authData.user.displayName});
       this.setState( {email: authData.user.email});
      
     }    
@@ -79,6 +81,8 @@ class App extends Component {
      
       this.authHandler(null, { user })
       if(user) { 
+        console.log("Mounting   ", user.user_id);
+        
         this.setState({user_id: user.uid}  ); 
         this.ref = base.syncState(`users/${this.state.user_id}`, {
           context: this,

@@ -21,8 +21,9 @@ class Login extends Component {
                     <button className="btn  btn-primary w-100" type="submit">Login</button>
                     <button className="btn  btn-secondary w-100" data-toggle="modal" data-target="#signup">Sign Up</button>
                 </div>
-                <button className="btn btn-info" onClick={ () => this.props.authenticate('facebook')}>Continue with Facebook</button>
-                <button className="btn btn-info" onClick={ () => this.props.logout()}>Logout</button>
+                <button className="btn btn-primary" onClick={ () => this.props.authenticate('facebook')}>Continue with Facebook</button>
+                <button className="btn btn-info" onClick={ () => this.props.authenticate('github')}>Continue with Github</button>
+                <button className="btn btn-danger" onClick={ () => this.props.logout()}>Logout</button>
 
                 {/* <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" 
                 data-auto-logout-link="false" data-use-continue-as="false" onClick={ () => this.props.authenticate('facebook')}></div> */}
