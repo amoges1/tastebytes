@@ -13,7 +13,6 @@ import Friendframe from './components/Friendframe';
 import Search from './components/Search';
 
 import Signup from './modals/Signup';
-import Share from './modals/Share';
 import Map from './modals/Map';
 import Delete from './modals/Delete';
 
@@ -102,12 +101,12 @@ class App extends Component {
           <Navitems name={this.state.name} logout={this.logout}/>
           <Switch>
             <Route path='/' render= { () =>  <Login authenticate={this.authenticate} logout={this.logout} signup={this.signup} /> } exact />
-            <Route path='/home' render= { () => <Home user={this.state.user}/> } exact />
+            <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} /> } exact />
             <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
             <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
           </Switch>
           
-          <Share/>
+          
           <Map/>
 
           <Delete/>

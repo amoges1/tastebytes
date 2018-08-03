@@ -28,43 +28,43 @@ class Frequests extends Component {
             );
         }
 
-        removeRequest(e, index){
-            e.preventDefault();
-            
-            base.remove(`users/${this.props.user.user_id}/friends/${freqs.key}`, 
-                function(err) { 
-                    if(err) { console.log(err);  }
-                });
-          }
+    removeRequest(e, freqs){
+        e.preventDefault();
+        
+        base.remove(`users/${this.props.user.user_id}/friends/${freqs.key}`, 
+            function(err) { 
+                if(err) { console.log(err);  }
+            });
+        }
 
-          addRequest(e, freqs){
-            e.preventDefault();
-            console.log(this.props.user.friends);
-            
-            //add to my friends
-            if(!this.props.user.friends) {
-                base.post(`users/${this.props.user.user_id}/friends/0`, {
-                    data: { key: freqs.key, name: freqs.name, email: freqs.email, connected: true  }, then(err) {
-                        if(err) { console.log(err);  } 
-                    }
-                })
-            } else {
-                base.database().ref(`users/${this.props.user.user_id}/friends/`)
-                .child(`${this.props.user.friends.length}`)
-                .set({ key: freqs.key, name: freqs.name, email: freqs.email, connected: false }) 
-            }
-            
-            //update friends connected to true
-            base.post(`users/${freqs.key}/friends/${this.props.user.user_id}`, {
-                data: { key: this.props.user_id, name:this.props.user.username, 
-                    email: this.props.user.email, connected:true  },
-                then(err){
-                  if(!err) { 
-                      alert(`You're now friends with ${freqs.name}.`);
-                   }
+        addRequest(e, freqs){
+        e.preventDefault();
+        console.log(this.props.user.friends);
+        
+        //add to my friends
+        if(!this.props.user.friends) {
+            base.post(`users/${this.props.user.user_id}/friends/0`, {
+                data: { key: freqs.key, name: freqs.name, email: freqs.email, connected: true  }, then(err) {
+                    if(err) { console.log(err);  } 
                 }
-              });
-          }
-    }
+            })
+        } else {
+            base.database().ref(`users/${this.props.user.user_id}/friends/`)
+            .child(`${this.props.user.friends.length}`)
+            .set({ key: freqs.key, name: freqs.name, email: freqs.email, connected: false }) 
+        }
+        
+        //update friends connected to true
+        base.post(`users/${freqs.key}/friends/${this.props.user.user_id}`, {
+            data: { key: this.props.user_id, name:this.props.user.username, 
+                email: this.props.user.email, connected:true  },
+            then(err){
+                if(!err) { 
+                    alert(`You're now friends with ${freqs.name}.`);
+                }
+            }
+            });
+        }
+}
 
 export default Frequests;

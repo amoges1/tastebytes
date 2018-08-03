@@ -1,7 +1,56 @@
 import React, { Component } from 'react';
-
+import base from '../base';
 class Share extends Component {
-  render() {
+
+    constructor() {
+        super();
+        this.shareRestaurant = this.shareRestaurant.bind(this);
+    }
+
+    shareRestaurant(e) {
+        e.preventDefault();
+        
+        let res_name = document.getElementById("res_name").innerHTML;
+        let res_address = document.getElementById("res_address").innerHTML;
+        let friend = document.getElementById("friend").value;
+       
+        //build object
+        let shareRes = {
+            name: res_name,
+            address: res_address,
+            added: false,
+            rating: 0
+        }
+        
+        //share to friend
+        //1. find friend key and lenght of restaurants.false by base user friend loop
+        let friend_id = false; 
+        let recs_length = false;
+        
+        //2. Check in friend's list if restaurant exists already
+
+        //3. add it if it doesn't exist
+        if(recs_length < 1) {
+            base.post(`users/${friend_id}/restaurants/0`, {
+                data: shareRes, then(err) {
+                    if(err) { console.log(err);  } 
+                }
+            })
+        } else {
+            base.database().ref(`users/${friend_id}/restaurants/`)
+            .child(`${recs_length}`).set(shareRes) 
+        }
+        console.log(shareRes, friend);
+        
+
+    }
+    render() {
+        let friendList = 
+            <select name="friends" id="friend"> 
+                ${this.props.friends.map(
+                    friend => <option key={friend} index={friend.key} value={friend.name}> {friend.name} </option>)}
+            </select>;
+        
     return (
         <div className="modal fade" id="share">
         <div className="modal-dialog">
@@ -15,25 +64,22 @@ class Share extends Component {
                 <div className="modal-body">
                     <div className="container">
                         <div className="d-flex flex-column align-items-center pb-2 mt-4 mb-2 border-bottom">
-                            <h4>Shack Shack 
-                            </h4>
-                            <h5>123 Frank Street</h5>
-                            <h5><span className="badge badge-pill badge-success">8.5</span></h5>
+                            <h4 id="res_name"> </h4>
+                            <h5 id="res_address"></h5>
+                            <h5><span id="res_rating" className="badge badge-pill badge-success"></span></h5>
                         </div>
                     </div>
                     <div className="container">
                         <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}>
-                            <h5>Share with 
-                            <select name="friends" id="friend">
-                                <option value="Anteneh">Anteneh</option>
-                                <option value="Jennifer">Jennifer</option>
-                            </select>
-                        </h5>
+                            <h5>Share with:
+                                <br />  
+                                {friendList}
+                            </h5>
                         </div>
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-success" 
+                    <button onClick={ (e) => this.shareRestaurant(e)} type="button" className="btn btn-success" 
                         data-dismiss="modal">Confirm</button>
                 </div>
             </div>
