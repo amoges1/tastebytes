@@ -5,8 +5,12 @@ class Rating extends Component {
     constructor() {
         super();
         this.addReview = this.addReview.bind(this);
+        this.state = {}
     }
 
+    componentDidMount() {
+
+    }
     addReview(e) {
         console.log(e);
         
@@ -16,24 +20,86 @@ class Rating extends Component {
         let score = document.getElementById("score").value;
         let resID = e.target.getAttribute("data-res");
         let friendKey = e.target.getAttribute("data-friend");
+        console.log(`users/${friendKey}/restaurants/${resID}`);
         
         let review = {
-            user: name,
+            name: name,
             comment: comment,
             score: score
         }
 
-        //restaurants
-        //check if I made a review
-        base.fetch(`users/${friendKey}/restaurants/${resID}`, {
-            context: this,
-        }).then(restaurant => {
-            console.log(restaurant);
+        if(friendKey !== null && resID !== null) {
             
-        });
-        //friend's list restaurants key
-
-        //
+            base.fetch(`users/${friendKey}/restaurants/${resID}`, {
+                context: this
+            }).then(restaurant => {
+                if(!restaurant.reviews) {
+                    //check if I made a review
+                    base.push(`users/${friendKey}/restaurants/${resID}/reviews`, {
+                        data: review,
+                        then(err){
+                          if(err){console.log(err);} 
+                          else {alert(`Your review has been sent!`);}
+                        }
+                      });
+                      
+                      base.fetch(`users/${friendKey}/restaurants/${resID}`, {
+                          context:this
+                      }).then(res => {
+                          let average = 0;
+                          let count = 0;
+                          for (let key in res.reviews) {
+                              average += res.reviews[key].score;
+                              count += 1
+                              console.log("adding ", res.reviews[key].score);
+                              
+                          }
+                          average = average/count
+                          
+                          base.update(`users/${friendKey}/restaurants/${resID}`, {
+                            data: { rating: average },
+                            then(err) {
+                              if (err) {console.log(err); }
+                            }
+                          });
+                      })
+                } else {
+                    for (let key in restaurant.reviews) {
+                        if(restaurant.reviews[key].name === name) {
+                            alert("You already reviewed this restaurant!");
+                            return;
+                        }
+                    }
+                    base.push(`users/${friendKey}/restaurants/${resID}/reviews`, {
+                        data: review,
+                        then(err){
+                          if(err){console.log(err);} 
+                          else {
+                            base.fetch(`users/${friendKey}/restaurants/${resID}/reviews`, {
+                                context:this
+                            }).then(reviews => {
+                                let average;
+                                for (let key in reviews) {
+                                    average += reviews[key].score;
+                                }
+                                average /= reviews.length
+                                base.update(`users/${friendKey}/restaurants/${resID}/`, {
+                                  data: { score: average },
+                                  then(err) {
+                                    if (err) {console.log(err); }
+                                  }
+                                });
+                            })
+                            alert(`Your review has been sent!`);}
+                        }
+                      }); 
+                    
+                }
+            });
+        } else {
+            alert("Sorry, please try again...");
+        }
+        
     }
     render() {
         return (
@@ -72,7 +138,7 @@ class Rating extends Component {
                             </div>
                            <div className="form-group">
                                 <label htmlFor="review"><strong>Review:</strong></label>
-                                <textarea className="form-control" name="review" id="review" cols="20" rows="6" placeholder="Voice your critical critique of this establishment here..."></textarea>    
+                                <textarea className="form-control" name="review" id="review" cols="20" rows="6" defaultValue="This place is good!"></textarea>    
                            </div>
                     </div>                 
                 </div>

@@ -10,6 +10,7 @@ class Resitems extends Component {
             res: {}
         }
     }
+
     getShareInfo(e, key) {
         e.preventDefault();
         
@@ -32,9 +33,10 @@ class Resitems extends Component {
     }
     render() {
         const res  = this.props.res;
-       
+        
         let key = Object.keys(this.props.user.restaurants)
             .find(key => this.props.user.restaurants[key] === res);
+        
         
         let resload;
         if (res.reviews) {
