@@ -37,7 +37,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Recsframe recs={recs} user_id={this.props.user_id}/>
+        <Recsframe recs={recs} user={this.props.user} user_id={this.props.user_id}/>
         <Resframe res={res} user={this.props.user}/>
         <Share friends={friends} name={this.props.name}/>
       </div>

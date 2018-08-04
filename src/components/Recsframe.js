@@ -9,7 +9,7 @@ class Recsframe extends Component {
         
         let recsload;
         if (recs) {
-            recsload = Object.keys(recs).map(key => <Recs index={key} key={key} recs={recs[key]} user_id={this.props.user_id}/>)
+            recsload = Object.keys(recs).map(key => <Recs index={key} key={key} recs={recs[key]} user={this.props.user} user_id={this.props.user_id}/>)
         }
         return (
             <div className="container border-bottom mt-20" style={{ marginTop: "20px"}} data-aos="fade-right"  data-aos-duration="1000">
