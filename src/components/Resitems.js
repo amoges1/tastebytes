@@ -59,7 +59,11 @@ class Resitems extends Component {
                 <div id={`${this.props.index}`} className="collapse show" role="tabpanel"
                 aria-labelledby="restaurantheading">
                     <div className="card-block container" >
+                        <div className="mt-3 mb-0">
+                                <h5 className="lead">  {res.address}</h5>
+                        </div>
                         <div className="d-flex btn-group" style={{paddingTop: "20px"}}>
+                          
                             <button onClick={ (e) => this.getShareInfo(e, key)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
                                 Share <i className="fas fa-user-friends"></i>
                             </button>

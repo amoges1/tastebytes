@@ -19,8 +19,8 @@ class Search extends Component {
 
     let progressbar; 
     if(this.state.progress) {
-       progressbar = <div className="progress mt-2" style={{height: "30px"}}> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
-        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <h4>Loading</h4></div></div>;
+       progressbar = <div className="progress" style={{height: "30px"}}> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
+        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <h5 className="mb-0"> Loading </h5></div></div>;
     }
     
 
@@ -35,20 +35,20 @@ class Search extends Component {
                     <label htmlFor="term"><strong><h4>What are you craving?</h4></strong></label>
                     <input ref={ (input) => this.term = input } type="text" className="form-control" id="term" placeholder="El Dorado...Answer to Life"/>
                 </div>
-                <div className="form-check-inline">
+                {/* <div className="form-check-inline">
                     <h6>Use My Location:</h6>
-                </div>
-                <div className="form-check-inline">
+                </div> */}
+                {/* <div className="form-check-inline">
 
                     <label className="form-check-label">
                         <input type="radio" className="form-check-input" name="optradio"/>Yes
                     </label>
-                </div>
-                <div className="form-check-inline">
+                </div> */}
+                {/* <div className="form-check-inline">
                     <label className="form-check-label">
                         <input type="radio" className="form-check-input" name="optradio"/>No
                     </label>
-                </div>
+                </div> */}
                 <div className="form-group">
                     <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}>Search <i className="fas fa-search"></i></button>
                 </div>
@@ -74,10 +74,11 @@ class Search extends Component {
   
   getPlaces(e) {
     e.preventDefault();
-    this.setState({ progress: true})
+    
     const lat = this.state.position.coords ? this.state.position.coords.latitude : null;
     const long = this.state.position.coords ? this.state.position.coords.longitude : null;
     if(lat && long) {
+        this.setState({ progress: true})
         const term = this.term.value;
         const config = {
             headers: {'Authorization': 'Bearer shnGznzM0y3L-q814lEgiU-tsQLoXaAvCxQKvlpMLPjzig_IIssjroIGl7HS3dixCNk-2rLVJpfO_5Bb-ZXa8p-UTWeyAg9mQCzjz3fNeqLcyvw8YQBI_73uEZVTW3Yx'},
@@ -107,7 +108,7 @@ class Search extends Component {
         
             });
         } else {
-            alert("Enable GPS Location on your Browser");
+            alert("Retrieving your location...Please make sure GPS Location is Enabled!");
         }
           
   }
@@ -156,7 +157,7 @@ class Search extends Component {
     }
   }
   
-  componentDidMount() {
+  componentWillMount() {
       navigator.geolocation.getCurrentPosition(
           (position => {this.setState({position})}
         )

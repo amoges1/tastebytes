@@ -72,8 +72,9 @@ class Friendres extends Component {
         
         return (
             <tr>
-                <td style={{textAlign: "center", marginTop: "7px"}}> <h5><strong>{res.name}</strong> 
-                    <span className="badge badge-warning">{res.rating}</span> </h5></td>
+                <td style={{textAlign: "center", marginTop: "7px"}}> <h5> {res.name}
+                    <br /> 
+                    <span className="badge badge-warning"> {res.rating} </span> </h5></td>
                 <td style={{textAlign: "center"}}> 
                     <div className="d-flex flex-wrap">
                         <button type="button" id={`${this.props.index}`} onClick={(e) => this.addRes(e, res.name, res.address)} className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">

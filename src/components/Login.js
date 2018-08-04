@@ -9,7 +9,7 @@ class Login extends Component {
       <div className="container text-center w-50 mt-3">
            
                  {/* <h1 className="h3 mb-3 font-weight-normal">Start Here</h1>  */}
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus=""/>        
                 </div>
@@ -20,7 +20,7 @@ class Login extends Component {
                 <div className="btn-group d-flex mb-3">
                     <button className="btn  btn-primary w-100" type="submit">Login</button>
                     <button className="btn  btn-secondary w-100" data-toggle="modal" data-target="#signup">Sign Up</button>
-                </div>
+                </div> */}
                 <button className="btn btn-primary" onClick={ () => this.props.authenticate('facebook')}>Continue with Facebook</button>
                 <button className="btn btn-info" onClick={ () => this.props.authenticate('github')}>Continue with Github</button>
                 <button className="btn btn-danger" onClick={ () => this.props.logout()}>Logout</button>
@@ -30,7 +30,10 @@ class Login extends Component {
            
         </div>
       <div className="container text-center w-75 mt-3">
-        <h3 className="border-bottom">Join the Fun!</h3>
+      <header className="Login-header border-bottom">
+          <h1>Welcome to Tastebytes</h1>
+          <em>Join the Fun!</em>
+        </header>
         <div className="row">
             <div className="col-md-6 mb-3 mt-3">
                 <h3><i className="fas fa-home"></i> </h3>
@@ -58,12 +61,6 @@ class Login extends Component {
             </div>
         </div>
     </div>
-    <header className="Login-header">
-          <h1>Welcome to Tastebytes</h1>
-        </header>
-        <p className="App-intro">
-          Join the fun now!
-        </p>
         
     </div>
      
