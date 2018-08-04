@@ -95,8 +95,8 @@ class Share extends Component {
                 <div className="modal-body">
                     <div className="container">
                         <div className="d-flex flex-column align-items-center pb-2 mt-4 mb-2 border-bottom">
-                            <h4 id="res_name"> </h4>
-                            <h5 id="res_address"></h5>
+                            <h4 id="res_name">""</h4>
+                            <h5 id="res_address">""</h5>
                             <h5><span id="res_rating" className="badge badge-pill badge-success"></span></h5>
                         </div>
                     </div>

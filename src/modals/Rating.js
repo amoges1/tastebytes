@@ -115,9 +115,8 @@ class Rating extends Component {
                 <div className="modal-body">
                     <div className="container">
                         <div className="d-flex flex-column align-items-center pb-2 mt-4 mb-2 border-bottom">
-                            <h4 id="rres_name">
-                            </h4>
-                            <h5 id="rres_address"></h5>
+                            <h4 id="rres_name">""</h4>
+                            <h5 id="rres_address">""</h5>
                         </div>
                     </div> 
                     <div className="container">

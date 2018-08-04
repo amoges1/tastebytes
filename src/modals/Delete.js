@@ -31,8 +31,8 @@ class Delete extends Component {
                 <div className="modal-body">
                     <div className="container">
                         <div className="d-flex flex-column align-items-center ">
-                            <h4 id="dres_name"> </h4>
-                            <h5 id="dres_address"></h5>
+                            <h4 id="dres_name">""</h4>
+                            <h5 id="dres_address">""</h5>
                             <h5><span id="dres_rating" className="badge badge-pill badge-success"></span></h5>
                         </div>
                     </div>                  
