@@ -34,7 +34,7 @@ class Addfriend extends Component {
                     return;
                 }
                 //friend exists in DB
-                if (friend.email === inputEmail) {
+                if (friend.profile.email === inputEmail) {
                     
                     friendExists = true;
                     console.log("This is the friend key", friend.key);
@@ -45,12 +45,12 @@ class Addfriend extends Component {
                          friend.friends.forEach(me => {
                             
                             if(me.email === this.props.email && me.connected === true) {
-                                alert(`You and ${friend.username} are already best friends!`); 
+                                alert(`You and ${friend.profile.name} are already best friends!`); 
                                 sent = true;
                                 this.setState({progress: false});
                                 return;
-                            } else if (e.email === this.props.email && me.connected === false) {
-                                alert(`Friend request to ${friend.username} is already sent!`); 
+                            } else if (me.email === this.props.email && me.connected === false) {
+                                alert(`Friend request to ${friend.profile.name} is already sent!`); 
                                 sent = true;
                                 this.setState({progress: false});
                                 return;
@@ -80,7 +80,7 @@ class Addfriend extends Component {
                             .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false }) 
                         }
                        
-                        alert(`Friend request to ${friend.username} is sent!`); 
+                        alert(`Friend request to ${friend.profile.name} is sent!`); 
                         sent = true;
                         this.setState({progress: false});
                                 

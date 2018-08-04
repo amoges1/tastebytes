@@ -20,7 +20,10 @@ class Home extends Component {
     const restaurants = this.props.user.restaurants;
     let res = restaurants.filter(res => res.added === true);
     let recs = restaurants.filter(rec => rec.added === false);    
-    let friends = this.props.user.friends.filter(friend => friend.connected === true);
+    let friends = null;
+    if(this.props.user.friends) {
+      friends = this.props.user.friends.filter(friend => friend.connected === true);
+    }
 
     return (
       <div>

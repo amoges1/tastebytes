@@ -35,7 +35,7 @@ class Share extends Component {
             if(!friend.restaurants) {
                 base.database().ref(`users/${friendkey}/restaurants/`)
                 .child("0").set(shareRes);
-                alert(`Recommendation to ${friend.username} is sent!`);
+                alert(`Recommendation to ${friend.profile.name} is sent!`);
  
             } else {
                 let duplicate = false;
@@ -48,20 +48,24 @@ class Share extends Component {
                 if (!duplicate) {
                     base.database().ref(`users/${friendkey}/restaurants/`)
                     .child(`${friend.restaurants.length}`).set(shareRes) 
-                    alert(`Recommendation to ${friend.username} is sent!`);
+                    alert(`Recommendation to ${friend.profile.name} is sent!`);
                 } else {
-                    alert(`${friend.username} has ${res_name} at ${res_address} on their list!`);
+                    alert(`${friend.profile.name} has ${res_name} at ${res_address} on their list!`);
                 }
             }
         });        
 
     }
     render() {
-        let friendList = 
+        let friendList = <p> Add some friends to share your favorite restaurants </p>;
+        if(this.props.friends) {
+            friendList = 
             <select name="friends" id="friend"> 
                 ${this.props.friends.map(
                     friend => <option key={friend.key} index={friend.key} value={friend.name}> {friend.name} </option>)}
             </select>;
+        }
+        
         
     return (
         <div className="modal fade" id="share">

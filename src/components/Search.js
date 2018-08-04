@@ -127,9 +127,9 @@ class Search extends Component {
     } else {
 
         let contain = false;
-    
+        
         this.props.user.restaurants.forEach(res => {
-            if(res.name === name && res.address === address.join(' ')) {
+            if(res.name == name && res.address == address.join(' ')) {
                 contain = true;                
             }
         });

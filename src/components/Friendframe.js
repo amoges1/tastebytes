@@ -7,7 +7,8 @@ class Friendframe extends Component {
 
     render() {
 
-        const friends = this.props.user.friends;
+        
+        const friends = this.props.user ? this.props.user.friends : null;
         let freqload, frenload;
 
         if(friends) {
@@ -18,8 +19,8 @@ class Friendframe extends Component {
             frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friends[key].name} />)
     
         }
-        
-        if(!this.props.user) {
+
+        if(!friends) {
             return (
                 <div className="container" style={{ paddingTop: "20px" }} data-aos="fade-right"  data-aos-duration="1000">
                     <h6 className="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#newfriends">

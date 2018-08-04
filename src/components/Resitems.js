@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Review from './Review';
-
+import base from '../base';
 class Resitems extends Component {
     constructor() {
         super();
         this.getShareInfo = this.getShareInfo.bind(this);
+        this.getDeleteInfo = this.getDeleteInfo.bind(this);
         this.state = {
             res: {}
         }
@@ -16,8 +17,19 @@ class Resitems extends Component {
         document.getElementById("res_name").innerHTML = shareRes.name;
         document.getElementById("res_address").innerHTML = shareRes.address;
         document.getElementById("res_rating").innerHTML = shareRes.rating;
+        
+    }
 
+    getDeleteInfo(e, index) {
+        e.preventDefault();
+        base.remove(`users/${this.props.user_id}/restaurants/${index}`, 
+            function(err) { 
+                if(err) { console.log(err);  }
 
+            });
+        // document.getElementById("res_name").innerHTML = shareRes.name;
+        // document.getElementById("res_address").innerHTML = shareRes.address;
+        // document.getElementById("res_rating").innerHTML = shareRes.rating;
         
     }
     render() {
@@ -44,13 +56,13 @@ class Resitems extends Component {
                 aria-labelledby="restaurantheading">
                     <div className="card-block container" >
                         <div className="d-flex btn-group" style={{paddingTop: "20px"}}>
-                            <button onClick={ (e) => this.getShareInfo(e)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
+                            <button onClick={ (e) => this.getShareInfo(e, this.props.index)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
                                 Share <i className="fas fa-user-friends"></i>
                             </button>
                             <button type="button" className="btn btn-warning flex-fill" data-toggle="modal" data-target="#map">
                                 Location <i className="fas fa-map-marker-alt"></i>
                             </button> 
-                            <button data-key={this.props.index} onClick={ (e) => this.props.removePlace(e, this.props.index)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">
+                            <button data-key={this.props.index} onClick={ (e) => this.getDeleteInfo(e, this.props.index)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">
                                 Delete <i className="fas fa-trash-alt"></i></button>
                         </div> 
                         <div className="row" style={{paddingTop: "20px"}}>

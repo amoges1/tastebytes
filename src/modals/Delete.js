@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 
 class Delete extends Component {
-  render() {
+
+    constructor() {
+        super();
+        this.deleteRestaurant = this.deleteRestaurant.bind(this);
+    }
+
+    deleteRestaurant(e) {
+        e.preventDefault();
+        
+        
+    }
+    render() {
     return (
         <div className="modal fade" id="delete">
         <div className="modal-dialog">
@@ -15,15 +26,14 @@ class Delete extends Component {
                 <div className="modal-body">
                     <div className="container">
                         <div className="d-flex flex-column align-items-center ">
-                            <h4>Shack Shack 
-                            </h4>
-                            <h5>123 Frank Street</h5>
-                            <h5><span className="badge badge-pill badge-success">8.5</span></h5>
+                            <h4 id="dres_name"> </h4>
+                            <h5 id="dres_address"></h5>
+                            <h5><span id="dres_rating" className="badge badge-pill badge-success"></span></h5>
                         </div>
                     </div>                  
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-dismiss="modal">Confirm</button>
+                    <button onClick={ (e) => this.deleteRestaurant(e)} type="button" className="btn btn-danger" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div> 

@@ -62,12 +62,11 @@ class Frequests extends Component {
         base.fetch(`users/${friendKey}`, {
             context: this
         }).then(friend => {
-            let friendLength = friend.friends ? friend.friends.length : 0;
-            
-            base.database().ref(`users/${friendKey}/friends/`)
-            .child(`${friendLength}`)
-            .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: true, total_friends:friendLength }) 
-
+                let friendLength = friend.friends ? friend.friends.length : 0;
+                
+                base.database().ref(`users/${friendKey}/friends/`)
+                .child(`${friendLength}`)
+                .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: true, total_friends:friendLength }) 
             })
         }
 }
