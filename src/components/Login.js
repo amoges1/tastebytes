@@ -7,7 +7,7 @@ class Login extends Component {
       let logged = this.props.name ? <h3>Click on Home and Start!</h3> : <h3>Please Log In</h3>
     return (
       <div>
-      <div className="container text-center w-50 mt-3">
+      <div className="container text-center w-75 mt-3">
            
                  {/* <h1 className="h3 mb-3 font-weight-normal">Start Here</h1>  */}
                 {/* <div className="form-group">
