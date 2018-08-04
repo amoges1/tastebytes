@@ -4,6 +4,7 @@ class Share extends Component {
 
     constructor() {
         super();
+ 
         this.shareRestaurant = this.shareRestaurant.bind(this);
     }
 
@@ -12,38 +13,47 @@ class Share extends Component {
         
         let res_name = document.getElementById("res_name").innerHTML;
         let res_address = document.getElementById("res_address").innerHTML;
+        let comment = document.getElementById("comment").value;
         let friend = document.getElementById("friend");
-        let friendkey = friend.options[friend.selectedIndex].getAttribute("key")
-        console.log("This is friend, ", friend);
+        let friendkey = friend.options[friend.selectedIndex].getAttribute("index")
+        console.log("This is friend, ", friendkey);
         
         //build object
         let shareRes = {
             name: res_name,
             address: res_address,
             added: false,
-            rating: 0
+            rating: 0,
+            comment: comment,
+            friend: this.props.name
         }
         
-        //share to friend
-        //1. find friend key and lenght of restaurants.false by base user friend loop
-        // let friend_id = false; 
-        // let recs_length = false;
-        
-        // //2. Check in friend's list if restaurant exists already
+        base.fetch(`users/${friendkey}`, {
+            context: this
+        }).then(friend => {
+            //check their list
+            if(!friend.restaurants) {
+                base.database().ref(`users/${friendkey}/restaurants/`)
+                .child("0").set(shareRes);
+                alert(`Recommendation to ${friend.username} is sent!`);
+ 
+            } else {
+                let duplicate = false;
+                friend.restaurants.forEach(res => {
+                    if(res.name === res_name && res.address === res_address) {
+                        duplicate = true;
+                    }
+                });
 
-        // //3. add it if it doesn't exist
-        // if(recs_length < 1) {
-        //     base.post(`users/${friend_id}/restaurants/0`, {
-        //         data: shareRes, then(err) {
-        //             if(err) { console.log(err);  } 
-        //         }
-        //     })
-        // } else {
-        //     base.database().ref(`users/${friend_id}/restaurants/`)
-        //     .child(`${recs_length}`).set(shareRes) 
-        // }
-        // console.log(shareRes, friend);
-        
+                if (!duplicate) {
+                    base.database().ref(`users/${friendkey}/restaurants/`)
+                    .child(`${friend.restaurants.length}`).set(shareRes) 
+                    alert(`Recommendation to ${friend.username} is sent!`);
+                } else {
+                    alert(`${friend.username} has ${res_name} at ${res_address} on their list!`);
+                }
+            }
+        });        
 
     }
     render() {
@@ -77,6 +87,9 @@ class Share extends Component {
                                 <br />  
                                 {friendList}
                             </h5>
+                        </div>
+                        <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}>
+                        <textarea id="comment" rows="4" cols="50" defaultValue="This place is great!"></textarea>
                         </div>
                     </div>
                 </div>

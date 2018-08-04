@@ -63,40 +63,12 @@ class Frequests extends Component {
             context: this
         }).then(friend => {
             let friendLength = friend.friends ? friend.friends.length : 0;
-            console.log("Hello ", this.props.name);
             
             base.database().ref(`users/${friendKey}/friends/`)
             .child(`${friendLength}`)
             .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: true, total_friends:friendLength }) 
 
-            
-        })
-        //add to my friends
-        // if(!this.props.user.friends) {
-            
-        //     base.post(`users/${this.props.user.user_id}/friends/0`, {
-        //         data: { key: freqs.key, name: freqs.name, email: freqs.email, connected: true  }, then(err) {
-        //             if(err) { console.log(err);  } 
-        //         }
-        //     })
-        // } else {
-        //     base.database().ref(`users/${freqs.key}/friends/`)
-        //     .child(`${this.props.user.friends.length}`)
-        //     .set({ key: freqs.key, name: freqs.name, email: freqs.email, connected: false }) 
-        // // }
-        
-        // //update friends connected to true
-        // console.log("THESE ARE THE VALUES, ", this.props.user_id,);
-        
-        // base.post(`users/${freqs.key}/friends/${this.props.user.user_id}`, {
-        //     data: { key: this.props.user_id, name:this.props.user.username, 
-        //         email: this.props.user.email, connected:true  },
-        //     then(err){
-        //         if(!err) { 
-        //             alert(`You're now friends with ${freqs.name}.`);
-        //         }
-        //     }
-        //     });
+            })
         }
 }
 

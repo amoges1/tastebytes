@@ -66,7 +66,7 @@ class Addfriend extends Component {
                         //add me to desired friend
                         if(!friend.friends) {
                             console.log("tHESE ARE THE VALUES", friend_key, this.props.name, this.props.email);
-                            let total_friends = total_friends ? total_friends : 0;
+                            total_friends = total_friends ? total_friends : 0;
                             base.database().ref(`users/${friend.key}/friends/`).child(total_friends)
                             .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false, total_friends: total_friends }) 
                             

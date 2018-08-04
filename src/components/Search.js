@@ -115,7 +115,7 @@ class Search extends Component {
   addPlace(e, name, address){
     e.preventDefault();
     
-    if(!this.props.user) {
+    if(!this.props.user.restaurants) {
         base.post(`users/${this.props.user_id}/restaurants/0`, {
             data: {name: name, address: address.join(' '), rating:0, added: true }, then(err) {
                 if(err) { console.log(err);  } 

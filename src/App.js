@@ -105,7 +105,7 @@ class App extends Component {
           <Navitems name={this.state.name} logout={this.logout}/>
           <Switch>
             <Route path='/' render= { () =>  <Login authenticate={this.authenticate} logout={this.logout} signup={this.signup} /> } exact />
-            <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} /> } exact />
+            <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
             <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
             <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
           </Switch>

@@ -7,6 +7,7 @@ class Recs extends Component {
         this.removeRec = this.removeRec.bind(this);
         // this.addRec = this.addRec.bind(this);
     }
+
     render() {
         const recs = this.props.recs;
         // console.log(recs);
@@ -33,9 +34,9 @@ class Recs extends Component {
 
     removeRec(e, index){
         e.preventDefault();
-        console.log(`users/user3/recommendations/${index}`);
+        console.log(`users/${this.props.user_id}/recommendations/${index-1}`);
         
-        base.remove(`users/user3/recommendations/${index}`, 
+        base.remove(`users/${this.props.user_id}/restaurants/${index}`, 
             function(err) { 
                 if(err) { console.log(err);  }
             });
