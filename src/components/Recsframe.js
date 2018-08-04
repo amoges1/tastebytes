@@ -5,7 +5,6 @@ class Recsframe extends Component {
     
     render() {
         const recs = this.props.recs;
-        console.log("recs length is ", recs ? recs.length : 0);
         
         
         let recsload;

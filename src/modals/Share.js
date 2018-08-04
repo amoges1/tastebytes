@@ -33,21 +33,37 @@ class Share extends Component {
         }).then(friend => {
             //check their list
             if(!friend.restaurants) {
-                base.database().ref(`users/${friendkey}/restaurants/`)
-                .child("0").set(shareRes);
+                base.push(`users/${friendkey}/restaurants/`, {
+                    data: shareRes,
+                    then(err){
+                      if(err){
+                        console.log(err);
+                        ;
+                      }
+                    }
+                  });
                 alert(`Recommendation to ${friend.profile.name} is sent!`);
  
             } else {
                 let duplicate = false;
-                friend.restaurants.forEach(res => {
-                    if(res.name === res_name && res.address === res_address) {
+                let friendres = friend.restaurants;
+                for (var key in friendres) {
+                    if(friendres[key].name === res_name && friendres[key].address === res_address ) {
                         duplicate = true;
                     }
-                });
+                }
+             
 
                 if (!duplicate) {
-                    base.database().ref(`users/${friendkey}/restaurants/`)
-                    .child(`${friend.restaurants.length}`).set(shareRes) 
+                    base.push(`users/${friendkey}/restaurants/`, {
+                        data: shareRes,
+                        then(err){
+                          if(err){
+                            console.log(err);
+                            ;
+                          }
+                        }
+                      });
                     alert(`Recommendation to ${friend.profile.name} is sent!`);
                 } else {
                     alert(`${friend.profile.name} has ${res_name} at ${res_address} on their list!`);

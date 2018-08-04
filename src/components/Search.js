@@ -116,29 +116,39 @@ class Search extends Component {
     e.preventDefault();
     
     if(!this.props.user.restaurants) {
-        base.post(`users/${this.props.user_id}/restaurants/0`, {
-            data: {name: name, address: address.join(' '), rating:0, added: true }, then(err) {
-                if(err) { console.log(err);  } 
-                else { 
-                    alert(`${name} on ${address.join(' ')} is added to your list.`); 
-                }
+        base.push(`users/${this.props.user_id}/restaurants/`, {
+            data: {name: name, address: address.join(' '), rating:0, added: true },
+            then(err){
+              if(err){
+                console.log(err);
+              } else {
+                alert(`${name} on ${address.join(' ')} is added to your list.`); 
+
+              }
             }
-        })
+          });
+      
     } else {
 
         let contain = false;
-        
-        this.props.user.restaurants.forEach(res => {
-            if(res.name == name && res.address == address.join(' ')) {
-                contain = true;                
+        const restaurants = this.props.user.restaurants;
+        for (var key in restaurants) {
+            if(restaurants[key].name === name && restaurants[key].address === address.join(' ')) {
+                contain = true;
             }
-        });
+        }
+    
 
         if (!contain) {
-            base.database().ref(`users/${this.props.user_id}/restaurants/`)
-                .child(`${this.props.user.restaurants.length}`).set({
-                name: name, address: address.join(' '), rating: 0, added: true
-            });
+            base.push(`users/${this.props.user_id}/restaurants/`, {
+                data: {name: name, address: address.join(' '), rating:0, added: true },
+                then(err){
+                  if(err){
+                    console.log(err);
+                    ;
+                  }
+                }
+              });
             alert(`${name} on ${address.join(' ')} is added to your list.`);
         } else {
             alert(`${name} at ${address} is already added to your list.`)

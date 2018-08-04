@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import base from '../base';
 class Delete extends Component {
 
     constructor() {
@@ -10,7 +10,12 @@ class Delete extends Component {
     deleteRestaurant(e) {
         e.preventDefault();
         
+        let key = document.getElementById("deletebutton").getAttribute("data-key");
         
+        base.remove(`users/${this.props.user_id}/restaurants/${key}`, 
+            function(err) { 
+                if(err) { console.log(err);  }
+            });
     }
     render() {
     return (
@@ -33,7 +38,7 @@ class Delete extends Component {
                     </div>                  
                 </div>
                 <div className="modal-footer">
-                    <button onClick={ (e) => this.deleteRestaurant(e)} type="button" className="btn btn-danger" data-dismiss="modal">Confirm</button>
+                    <button  id="deletebutton" data-key="0" onClick={ (e) => this.deleteRestaurant(e)} type="button" className="btn btn-danger" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div> 

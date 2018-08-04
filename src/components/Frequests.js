@@ -9,7 +9,10 @@ class Frequests extends Component {
         this.addRequest = this.addRequest.bind(this);
     }
     render() {
-    const freqs = this.props.freqs;
+    const freqs = this.props.freqs;       
+        let key = Object.keys(this.props.user.friends)
+            .find(key => this.props.user.friends[key] === freqs);
+        
     return (
             <li className="list-group-item list-group-item-action "> 
                 <h5  className="mb-0 d-flex justify-content-between">{freqs.name}
@@ -19,7 +22,7 @@ class Frequests extends Component {
                             Accept <i className="far fa-check-circle"></i>
                         </button>
                         <button type="button" className="btn btn-danger btn-sm" 
-                            onClick={ (e) => this.removeRequest(e, freqs)}> 
+                            onClick={ (e) => this.removeRequest(e, key)}> 
                             Decline <i className="far fa-times-circle"></i>
                         </button>
                     </div>
@@ -28,14 +31,12 @@ class Frequests extends Component {
             );
         }
 
-    removeRequest(e, freqs){
+    removeRequest(e, key){
         e.preventDefault();
-        console.log(`users/${this.props.user_id}/friends/${freqs.total_friends}`);
-        
-        base.remove(`users/${this.props.user_id}/friends/${freqs.total_friends}`, 
+        base.remove(`users/${this.props.user_id}/friends/${key}`, 
             function(err) { 
                 if(err) { console.log(err);  }
-            });
+            });        
         }
 
     addRequest(e, freqs){
@@ -46,28 +47,30 @@ class Frequests extends Component {
         
         //update my friends
         const myFriends = this.props.user.friends;
-        let friendKey;
-        myFriends.forEach(friend => {
-            if(friend.key === freqs.key) {        
-                friendKey = friend.key;        
-                base.database().ref(`users/${this.props.user_id}/friends/`)
-                    .child(`${friend.total_friends}`)
-                    .set({ key: freqs.key, name: freqs.name, email: freqs.email, connected: true, total_friends: friend.total_friends })  
+        for(var key in myFriends) {
+            if(myFriends[key].key === freqs.key) {
+                base.post(`users/${this.props.user_id}/friends/${key}`, {
+                    data: {key: freqs.key, name: freqs.name, email: freqs.email, connected: true},
+                    then(err){
+                      if(err){
+                        console.log(err);
+                        ;
+                      }
+                    }
+                  });
             }
-        });
+        }
 
         //add me to my friend
-        console.log(freqs.key);
-        
-        base.fetch(`users/${friendKey}`, {
-            context: this
-        }).then(friend => {
-                let friendLength = friend.friends ? friend.friends.length : 0;
-                
-                base.database().ref(`users/${friendKey}/friends/`)
-                .child(`${friendLength}`)
-                .set({ key: this.props.user_id, name: this.props.name, email: this.props.email, connected: true, total_friends:friendLength }) 
-            })
+            base.push(`users/${freqs.key}/friends/`, {
+                data: {key: this.props.user_id, name: this.props.name, email: this.props.email, connected: true},
+                then(err){
+                  if(err){
+                    console.log(err);
+                    ;
+                  }
+                }
+              });
         }
 }
 

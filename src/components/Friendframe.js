@@ -12,11 +12,21 @@ class Friendframe extends Component {
         let freqload, frenload;
 
         if(friends) {
-            let frequestFilter = friends.filter(friend => friend.connected === false);
-            let friendFilter = friends.filter(friend => friend.connected === true);
-    
+            let frequestFilter = []
+            let friendFilter = []
+            for (var key in friends) {
+                if(friends[key].connected === false) {
+                    frequestFilter.push(friends[key])
+                } else {
+                    friendFilter.push(friends[key])
+                }
+            }
+            // let frequestFilter = friends.filter(friend => friend.connected === false);
+            // let friendFilter = friends.filter(friend => friend.connected === true);
+            console.log(frenload);
+            
             freqload = Object.keys(frequestFilter).map(key => <Frequests index={key} key={key} freqs={frequestFilter[key]} name={this.props.name} email={this.props.email} user={this.props.user} user_id={this.props.user_id}/>);
-            frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friends[key].name} />)
+            frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friendFilter[key].name} />)
     
         }
 
@@ -34,7 +44,7 @@ class Friendframe extends Component {
                         }
                     </ul>
                 </div>
-                <h5> Add some friends to get started, {this.props.name.split(" ")[0]}!</h5>
+                <h5> Add some friends to get started, {this.props.name ? this.props.name.split(" ")[0] : ""}!</h5>
                 <AddFriend user={this.props.user} user_id={this.props.user_id} name={this.props.name} email={this.props.email}/>
 
             </div>                  

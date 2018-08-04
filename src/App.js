@@ -50,18 +50,14 @@ class App extends Component {
       authData.user.displayName 
         ? this.setState( {name: authData.user.displayName}) 
         : this.setState({ name: authData.user.email.split("@")[0]});
-      // this.setState( {name: authData.user.displayName});
       this.setState( {email: authData.user.email});
       base.fetch(`users/${this.state.user_id}`, {
         context: this
       }).then(user => {
-        console.log("This is ", user);
-        console.log(this.state.user_id);
         
         if (this.state.user_id !== null && this.state.name && !user.name) {
           base.database().ref(`users/${this.state.user_id}/profile`)
                   .set({ name: this.state.name, email: this.state.email })
-                  console.log(user);
                   
         }
       });
@@ -126,9 +122,8 @@ class App extends Component {
           
           <Map/>
 
-          {/* <Delete/> */}
           <Signup/>
-          <Delete/>
+          <Delete user_id={this.state.user_id}/>
           
         </div>
       </Router>

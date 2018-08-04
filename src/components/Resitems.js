@@ -10,9 +10,10 @@ class Resitems extends Component {
             res: {}
         }
     }
-    getShareInfo(e) {
+    getShareInfo(e, key) {
         e.preventDefault();
-        let shareRes = this.props.user.restaurants[this.props.index];
+        
+        let shareRes = this.props.user.restaurants[key];
        
         document.getElementById("res_name").innerHTML = shareRes.name;
         document.getElementById("res_address").innerHTML = shareRes.address;
@@ -20,20 +21,21 @@ class Resitems extends Component {
         
     }
 
-    getDeleteInfo(e, index) {
+    getDeleteInfo(e, key) {
         e.preventDefault();
-        base.remove(`users/${this.props.user_id}/restaurants/${index}`, 
-            function(err) { 
-                if(err) { console.log(err);  }
+        let shareRes = this.props.user.restaurants[key];
 
-            });
-        // document.getElementById("res_name").innerHTML = shareRes.name;
-        // document.getElementById("res_address").innerHTML = shareRes.address;
-        // document.getElementById("res_rating").innerHTML = shareRes.rating;
-        
+        document.getElementById("dres_name").innerHTML = shareRes.name;
+        document.getElementById("dres_address").innerHTML = shareRes.address;
+        document.getElementById("dres_rating").innerHTML = shareRes.rating;
+        document.getElementById("deletebutton").setAttribute("data-key", key);
     }
     render() {
         const res  = this.props.res;
+       
+        let key = Object.keys(this.props.user.restaurants)
+            .find(key => this.props.user.restaurants[key] === res);
+        
         let resload;
         if (res.reviews) {
             resload = Object.keys(res['reviews']).map( key=>
@@ -56,13 +58,13 @@ class Resitems extends Component {
                 aria-labelledby="restaurantheading">
                     <div className="card-block container" >
                         <div className="d-flex btn-group" style={{paddingTop: "20px"}}>
-                            <button onClick={ (e) => this.getShareInfo(e, this.props.index)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
+                            <button onClick={ (e) => this.getShareInfo(e, key)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
                                 Share <i className="fas fa-user-friends"></i>
                             </button>
                             <button type="button" className="btn btn-warning flex-fill" data-toggle="modal" data-target="#map">
                                 Location <i className="fas fa-map-marker-alt"></i>
                             </button> 
-                            <button data-key={this.props.index} onClick={ (e) => this.getDeleteInfo(e, this.props.index)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">
+                            <button data-key={this.props.index} onClick={ (e) => this.getDeleteInfo(e, key)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">
                                 Delete <i className="fas fa-trash-alt"></i></button>
                         </div> 
                         <div className="row" style={{paddingTop: "20px"}}>

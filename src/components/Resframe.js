@@ -6,7 +6,7 @@ class Resframe extends Component {
     
     render() {
         const res = this.props.res;
-
+        
         let resload;
         if (res) {
             resload = Object.keys(res).map(

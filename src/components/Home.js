@@ -17,12 +17,22 @@ class Home extends Component {
       )
     }
     
-    const restaurants = this.props.user.restaurants;
-    let res = restaurants.filter(res => res.added === true);
-    let recs = restaurants.filter(rec => rec.added === false);    
-    let friends = null;
-    if(this.props.user.friends) {
-      friends = this.props.user.friends.filter(friend => friend.connected === true);
+    let restaurants = this.props.user.restaurants;
+    let res = []
+    let recs = []
+    for (let key in restaurants) {
+      if(restaurants[key].added === true) {
+        res.push(restaurants[key])
+      } else {
+        recs.push(restaurants[key])
+      }
+    }
+    let friends = [];
+    let user_friends = this.props.user.friends;
+    for (let key in user_friends) {
+      if(user_friends[key].connected) {
+        friends.push(user_friends[key])
+      }
     }
 
     return (
