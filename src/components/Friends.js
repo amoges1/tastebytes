@@ -1,9 +1,41 @@
 import React, { Component } from 'react';
-
+import Friendres from './Friendres';
+import base from '../base';
 class Friends extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            amount: 0,
+            fresload: <p> Loading ...</p>
+        }
+    }
+    componentWillMount() {
+        let fresload;
+        const friend = this.props.frens;
+
+        //get Friends' restaurants
+        base.fetch(`users/${friend.key}/restaurants`, {
+            context: this,
+            then(frestaurants){
+                if(frestaurants) {
+                    fresload = <table className="table table-striped "><tbody> {Object.keys(frestaurants).map(key => 
+                        <Friendres user={this.props.user} friendKey={friend.key} user_id={this.props.user_id} key={key} index={key} res={frestaurants[key]}/>
+                    )}</tbody></table>;
+                    this.setState({ amount: Object.keys(frestaurants).length, fresload: fresload})
+                    
+                } else {
+                    this.setState({ fresload: <p> {friend.key} does not have any restaurants </p>})
+        
+                }
+
+            }
+        });
+    }
     render() {
-    const friend = this.props.frens;
-    // console.log("this is friend: ", friend);
+   
+        const friend = this.props.frens;
+
 
     return (
         <div >
@@ -11,8 +43,8 @@ class Friends extends Component {
                 <div className="card">
                     <div className="card-header" style={{backgroundColor: "red"}} id="userheading" data-toggle="collapse" data-parent="useraccordion"
                     data-target={`#${this.props.index}`} aria-expanded="true" aria-controls="restaurantID">
-                        <h5 className="mb-0 d-flex justify-content-between" style={{color:"white"}}>  {friend}           
-                            <span className="badge badge-success"> Amount: 10</span>
+                        <h5 className="mb-0 d-flex justify-content-between" style={{color:"white"}}>  {friend.name}           
+                            <span className="badge badge-success"> {this.state.amount}</span>
                         </h5>
                     </div> 
 
@@ -20,58 +52,7 @@ class Friends extends Component {
                     <div className="card-block container" >
                         <div className="row" style={{paddingTop: "20px"}}>
                             <div className="container">
-                                <table className="table table-striped ">
-                                    <tbody>
-                                        <tr className="table-warning">
-                                            <td style={{textAlign: "center", marginTop: "7px"}}> <h5><strong>Restaurant name is here</strong> <span className="badge badge-warning">8.5</span> </h5></td>
-                                            <td style={{textAlign: "center"}}> 
-                                                <div className="d-flex flex-wrap">
-                                                    <button type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
-                                                            Add <i className="fas fa-plus-circle"></i>
-                                                    </button> 
-                                                    <button type="button" className="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
-                                                            Location <i className="fas fa-map-marker-alt"></i>
-                                                    </button>
-                                                    <button type="button" className="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
-                                                            Rate <i className="far fa-list-alt"></i>
-                                                    </button> 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style={{textAlign: "center", marginTop: "7px"}}> <h5><strong>Restaurant name is here</strong> <span className="badge badge-warning">8.5</span> </h5></td>
-                                            <td style={{textAlign: "center"}}> 
-                                                <div className="d-flex flex-wrap">
-                                                    <button type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
-                                                            Add <i className="fas fa-plus-circle"></i>
-                                                    </button> 
-                                                    <button type="button" className="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
-                                                            Location <i className="fas fa-map-marker-alt"></i>
-                                                    </button>
-                                                    <button type="button" className="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
-                                                            Rate <i className="far fa-list-alt"></i>
-                                                    </button> 
-                                                </div>
-                                            </td>                                    
-                                        </tr>
-                                        <tr className="table-warning">
-                                            <td style={{textAlign: "center", marginTop: "7px"}}> <h5><strong>Restaurant name is here</strong> <span className="badge badge-warning">8.5</span> </h5></td>
-                                            <td style={{textAlign: "center"}}> 
-                                                <div className="d-flex flex-wrap">
-                                                    <button type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
-                                                            Add <i className="fas fa-plus-circle"></i>
-                                                    </button> 
-                                                    <button type="button" className="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
-                                                            Location <i className="fas fa-map-marker-alt"></i>
-                                                    </button>
-                                                    <button type="button" className="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
-                                                            Rate <i className="far fa-list-alt"></i>
-                                                    </button> 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                       {this.state.fresload}
                             </div>
                         </div> 
                     </div> 

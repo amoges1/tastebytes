@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import Frequests from './Frequests';
 import AddFriend from './Addfriend';
 import Friends from './Friends';
-
+import Rating from '../modals/Rating';
 class Friendframe extends Component {
 
     render() {
 
-        
         const friends = this.props.user ? this.props.user.friends : null;
         let freqload, frenload;
 
@@ -21,12 +20,9 @@ class Friendframe extends Component {
                     friendFilter.push(friends[key])
                 }
             }
-            // let frequestFilter = friends.filter(friend => friend.connected === false);
-            // let friendFilter = friends.filter(friend => friend.connected === true);
-            console.log(frenload);
             
             freqload = Object.keys(frequestFilter).map(key => <Frequests index={key} key={key} freqs={frequestFilter[key]} name={this.props.name} email={this.props.email} user={this.props.user} user_id={this.props.user_id}/>);
-            frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friendFilter[key].name} />)
+            frenload = Object.keys(friendFilter).map(key => <Friends index={key} key={key} frens={friendFilter[key]} user={this.props.user} user_id={this.props.user_id}/>)
     
         }
 
@@ -51,11 +47,6 @@ class Friendframe extends Component {
                  
               )
         }
-
-        //create freq/friends from true/flase connected!!!!!
-        // const frequests = this.props.user.frequests;
-
-            //filter friends vs friend requests
         
         return (
             <div>
@@ -76,6 +67,7 @@ class Friendframe extends Component {
                 {
                     frenload
                 }
+                <Rating user={this.props.user}/>
             </div>
         )
     }

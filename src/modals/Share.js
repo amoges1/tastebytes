@@ -4,7 +4,6 @@ class Share extends Component {
 
     constructor() {
         super();
- 
         this.shareRestaurant = this.shareRestaurant.bind(this);
     }
 

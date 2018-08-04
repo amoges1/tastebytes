@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Review from './Review';
-import base from '../base';
+
 class Resitems extends Component {
     constructor() {
         super();
