@@ -10,11 +10,10 @@ class Review extends Component {
         return (
             <tr>
                 <td>
-                <blockquote class="blockquote text-center">
+                <blockquote className="blockquote text-center">
                     <p className="mb-0">{ review.comment } </p>
                     <footer className="blockquote-footer">{review.name} </footer>
                 </blockquote>
-                {/* { review.comment } - <strong>{review.name}</strong>  */}
                 </td>
                 <td style={{textAlign: "center"}}>
                     <span className="badge badge-warning">

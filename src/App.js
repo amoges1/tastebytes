@@ -42,11 +42,9 @@ class App extends Component {
   }
 
   authHandler(err, authData) {
-    console.log("2. authHandler");
-    console.log(authData);
     
     if (err) { console.log(err); return }
-    if(authData) {
+    if(authData.user) {
       authData.user.displayName 
         ? this.setState( {name: authData.user.displayName}) 
         : this.setState({ name: authData.user.email.split("@")[0]});
@@ -54,13 +52,12 @@ class App extends Component {
       base.fetch(`users/${this.state.user_id}`, {
         context: this
       }).then(user => {
-        
         if (this.state.user_id !== null && this.state.name && !user.name) {
           base.database().ref(`users/${this.state.user_id}/profile`)
                   .set({ name: this.state.name, email: this.state.email })
-                  
         }
       });
+
     }    
   }
 

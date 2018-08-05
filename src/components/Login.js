@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 class Login extends Component {
 
 
   render() {
-      let logged = this.props.name ? <h3>Click on Home and Start!</h3> : <h3>Please Log In</h3>
+    let logged = this.props.name ? <Redirect to="/home"/>:<h3>Please Log In</h3>
     return (
       <div>
       <div className="container text-center w-75 mt-3">
@@ -22,6 +23,7 @@ class Login extends Component {
                     <button className="btn  btn-primary w-100" type="submit">Login</button>
                     <button className="btn  btn-secondary w-100" data-toggle="modal" data-target="#signup">Sign Up</button>
                 </div> */}
+                
                 { logged }
                 <button className="btn btn-primary" onClick={ () => this.props.authenticate('facebook')}>Continue with Facebook</button>
                 <button className="btn btn-info" onClick={ () => this.props.authenticate('github')}>Continue with Github</button>
