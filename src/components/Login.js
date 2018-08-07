@@ -11,18 +11,18 @@ class Login extends Component {
       <div className="container text-center w-75 mt-3">
            
                  {/* <h1 className="h3 mb-3 font-weight-normal">Start Here</h1>  */}
-                {/* <div className="form-group">
+                <div className="form-group">
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus=""/>        
+                    <input type="email" id="loginEmail"  className="form-control" placeholder="Email address" required="" autoFocus=""/>        
                 </div>
                 <div className="form-group">
                     <label htmlFor="inputPassword" className="sr-only">Password</label>
-                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" />
+                    <input type="password" id="loginPassword"  className="form-control" placeholder="Password" required="" />
                 </div>
                 <div className="btn-group d-flex mb-3">
-                    <button className="btn  btn-primary w-100" type="submit">Login</button>
+                    <button className="btn  btn-primary w-100" type="submit" onClick={ () => this.props.emailLogin() }>Login</button>
                     <button className="btn  btn-secondary w-100" data-toggle="modal" data-target="#signup">Sign Up</button>
-                </div> */}
+                </div>
                 
                 { logged }
                 <button className="btn btn-primary" onClick={ () => this.props.authenticate('facebook')}>Continue with Facebook</button>

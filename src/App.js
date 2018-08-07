@@ -26,6 +26,7 @@ class App extends Component {
     this.authenticate = this.authenticate.bind(this);
     this.authHandler = this.authHandler.bind(this);
     this.signup = this.signup.bind(this);
+    this.emailLogin = this.emailLogin.bind(this);
     this.logout = this.logout.bind(this);
     this.state = {
       user: {},
@@ -43,7 +44,8 @@ class App extends Component {
 
   authHandler(err, authData) {
     
-    if (err) { console.log(err); return }
+    if (err) { 
+      err.message ? alert(err.message) : console.log(err); return }
     if(authData.user) {
       authData.user.displayName 
         ? this.setState( {name: authData.user.displayName}) 
@@ -57,20 +59,30 @@ class App extends Component {
                   .set({ name: this.state.name, email: this.state.email })
         }
       });
-
+      
     }    
   }
 
+  emailLogin() {
+    const loginEmail = document.getElementById("loginEmail").value;
+    const loginPassword = document.getElementById("loginPassword").value;
+    
+    base.authWithPassword({
+      email    : loginEmail,
+      password : loginPassword
+    }, this.authHandler);
+  }
+  
   signup(e) {
     e.preventDefault();
-    console.log(this.email.value);
-    console.log(this.password.value);
-    
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
     
     base.createUser({
-      email: this.email.value,
-      password: this.password.value
+      email: email,
+      password: password
     }, this.authHandler);
+    alert("Account created, please exit the form")
   }
 
   logout() {
@@ -110,7 +122,7 @@ class App extends Component {
       
           <Navitems name={this.state.name} logout={this.logout}/>
           <Switch>
-            <Route path='/' render= { () =>  <Login name={this.state.name} authenticate={this.authenticate} logout={this.logout} signup={this.signup} /> } exact />
+            <Route path='/' render= { () =>  <Login name={this.state.name} authenticate={this.authenticate} emailLogin={this.emailLogin} logout={this.logout} signup={this.signup} /> } exact />
             <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
             <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
             <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
@@ -119,7 +131,7 @@ class App extends Component {
           
           <Map/>
 
-          <Signup/>
+          <Signup signup={this.signup}/>
           <Delete user_id={this.state.user_id}/>
           
         </div>

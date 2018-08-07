@@ -14,21 +14,19 @@ class Signup extends Component {
     
             <div className="modal-body">
                 <div className="container">
-                    <form ref={ (input) => this.signupForm = input}
-                        onSubmit={(e) => this.props.signup(e)}>
-                        <div className="form-group">
-                            <label htmlFor="email"><strong>Username:</strong></label>
-                            <input ref={ (input) => this.usernmae = input} type="text" className="form-control" />
-                        </div>
+                    <form ref={ (input) => this.signupForm = input }
+                        onSubmit={ (e) => this.props.signup(e)}>
                         <div className="form-group">
                             <label htmlFor="email"><strong>Email address:</strong></label>
-                            <input ref={ (input) => this.email = input} type="email" className="form-control" />
+                            <input ref={ (input) => this.email = input} type="email" id="email" className="form-control" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="pwd"><strong>Password:</strong></label>
-                            <input ref={ (input) => this.password = input} type="password" className="form-control" />
+                            <input ref={ (input) => this.password = input} type="password" id="password" className="form-control" />
                         </div>
-                        <button type="submit" className="btn btn-primary" >Sign Up</button>
+                        <div>
+                            <button type="submit" onClick={(e) => this.props.signup(e)} className="btn btn-primary" >Sign Up</button>
+                        </div>
                     </form>
                 </div>
             </div>
