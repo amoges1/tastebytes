@@ -77,12 +77,18 @@ class App extends Component {
     e.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    
-    base.createUser({
-      email: email,
-      password: password
-    }, this.authHandler);
-    alert("Account created, please exit the form")
+    const cpassword = document.getElementById("cpassword").value;
+
+    if(password === cpassword) {
+      base.createUser({
+        email: email,
+        password: password
+      }, this.authHandler);
+      alert("Account created, please exit the form");
+    } else {
+      alert("Passwords do not match");
+    }
+   
   }
 
   logout() {

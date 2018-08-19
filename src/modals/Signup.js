@@ -24,6 +24,10 @@ class Signup extends Component {
                             <label htmlFor="pwd"><strong>Password:</strong></label>
                             <input ref={ (input) => this.password = input} type="password" id="password" className="form-control" />
                         </div>
+                        <div className="form-group">
+                            <label htmlFor="cpwd"><strong>Confirm Password:</strong></label>
+                            <input ref={ (input) => this.password = input} type="password" id="cpassword" className="form-control" />
+                        </div>
                         <div>
                             <button type="submit" onClick={(e) => this.props.signup(e)} className="btn btn-primary" >Sign Up</button>
                         </div>
