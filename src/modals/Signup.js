@@ -18,15 +18,19 @@ class Signup extends Component {
                         onSubmit={ (e) => this.props.signup(e)}>
                         <div className="form-group">
                             <label htmlFor="email"><strong>Email address:</strong></label>
-                            <input ref={ (input) => this.email = input} type="email" id="email" className="form-control" />
+                            <input ref={ (input) => this.email = input} type="email" id="email" className="form-control" required/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="pwd"><strong>Password:</strong></label>
-                            <input ref={ (input) => this.password = input} type="password" id="password" className="form-control" />
+                            <input ref={ (input) => this.password = input} type="password" id="password" className="form-control" required/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="cpwd"><strong>Confirm Password:</strong></label>
-                            <input ref={ (input) => this.password = input} type="password" id="cpassword" className="form-control" />
+                            <input ref={ (input) => this.password = input} type="password" id="cpassword" className="form-control" required />
+                        </div>
+                        <div className="alert alert-danger alert-dismissible " id="signError" style={{ display: "none"}}> 
+                            <button type="button" className="close" data-dismiss="alert">&times;</button> 
+                            <strong id="signMessage"></strong>    
                         </div>
                         <div>
                             <button type="submit" onClick={(e) => this.props.signup(e)} className="btn btn-primary" >Sign Up</button>

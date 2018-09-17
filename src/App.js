@@ -44,8 +44,11 @@ class App extends Component {
 
   authHandler(err, authData) {
     
-    if (err) { 
-      err.message ? alert(err.message) : console.log(err); return }
+    if (err && err.message) { 
+      document.getElementById("message").innerHTML = err.message;
+      document.getElementById("error").style.display = "block";
+      return;
+    }
     if(authData.user) {
       authData.user.displayName 
         ? this.setState( {name: authData.user.displayName}) 
@@ -86,7 +89,8 @@ class App extends Component {
       }, this.authHandler);
       alert("Account created, please exit the form");
     } else {
-      alert("Passwords do not match");
+      document.getElementById("signMessage").innerHTML = "Passwords do not match";
+      document.getElementById("signError").style.display = "block";
     }
    
   }
