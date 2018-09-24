@@ -78,16 +78,49 @@ class App extends Component {
   
   signup(e) {
     e.preventDefault();
+  
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const cpassword = document.getElementById("cpassword").value;
 
+    if(email === "" && password === "" && cpassword === "") {
+      document.getElementById("signMessage").innerHTML = "Please fill out the form :(";
+      document.getElementById("signError").style.display = "block";
+      return;
+    }
     if(password === cpassword) {
-      base.createUser({
-        email: email,
-        password: password
-      }, this.authHandler);
-      alert("Account created, please exit the form");
+      if(password === "") {
+        document.getElementById("signMessage").innerHTML = "No Password is a Bad Idea :(";
+        document.getElementById("signError").style.display = "block";
+        return;
+      }
+      //check if email exists
+      base.fetch(`users/`, {
+        context: this,
+        then(users){
+            let create = true;
+            //loop through users
+            for (let key in users) {
+              if(users[key].profile.email === email) {
+                console.log(users[key].profile.email);
+                create = false;
+              }
+            }
+            if(create) {
+              base.createUser({
+                email: email,
+                password: password
+              }, this.authHandler);
+              document.getElementById("email").value = "";
+              document.getElementById("password").value = "";
+              document.getElementById("cpassword").value = "";
+            } else {
+              document.getElementById("signMessage").innerHTML = "Email is in use already :(";
+              document.getElementById("signError").style.display = "block";
+            }
+        }
+     });
+     
     } else {
       document.getElementById("signMessage").innerHTML = "Passwords do not match";
       document.getElementById("signError").style.display = "block";

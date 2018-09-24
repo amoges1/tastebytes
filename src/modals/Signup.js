@@ -33,7 +33,7 @@ class Signup extends Component {
                             <strong id="signMessage"></strong>    
                         </div>
                         <div>
-                            <button type="submit" onClick={(e) => this.props.signup(e)} className="btn btn-primary" >Sign Up</button>
+                            <button type="submit" onClick={(e) => this.props.signup(e)} className="btn btn-success float-right" >Join</button>
                         </div>
                     </form>
                 </div>

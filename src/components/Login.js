@@ -38,7 +38,7 @@ class Login extends Component {
                 {/* <p>Continue wtih...</p> */}
                 <div className="btn-group d-flex mb-3">
                     <button className="btn btn-primary w-100" onClick={ () => this.props.authenticate('facebook')}>
-                        <strong> <i class="fab fa-facebook-square"></i> Continue with Facebook </strong> </button>
+                        <strong> <i className="fab fa-facebook-square"></i> Continue with Facebook </strong> </button>
                     {/* <button className="btn btn-info w-100" onClick={ () => this.props.authenticate('github')}>Github</button> */}
                 </div>
 
