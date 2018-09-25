@@ -5,17 +5,22 @@ class Login extends Component {
 
 
   render() {
-    let logged = this.props.name ? <Redirect to="/home"/>: "";
+    let logged = this.props.name ? true : false;
     let error = <div className="alert alert-danger alert-dismissible " id="error" style={{ display: "none"}}> 
                     <button type="button" className="close" data-dismiss="alert">&times;</button> 
                     <strong id="message"></strong>    
                 </div>
-    
+    if(logged) {
+       return <Redirect to="/home"/>
+    } else {
     return (
       <div>
-        <header className="container Login-header border-bottom w-75 mt-3">
+          <div className="container-fluid  Login-header border-bottom w-100 mt-3" style={{ background: "red"}}>
+                <h1 style={{color:"white"}}>Welcome To TasteBytes</h1>
+          </div>
+        {/* <header className="container Login-header border-bottom w-100 mt-3" style={{ background: "red"}}>
              <h1>Welcome to TasteBytes</h1>
-        </header>
+        </header> */}
         <div className="container text-center w-75 mt-3">
                 {/* <h1 className="h3 mb-3 font-weight-normal">Start Here</h1>  */}
             <div className="form-group">
@@ -30,8 +35,8 @@ class Login extends Component {
                 {error}
             
             <div className="btn-group d-flex justify-content-center mb-3  ">
-                <button className="btn  btn-danger w-50" type="submit" onClick={ () => this.props.emailLogin() }>Login</button>
-                <button className="btn  btn-secondary w-50" data-toggle="modal" data-target="#signup">Sign Up</button>
+                <button className="btn  btn-danger w-50 font-weight-bold" type="submit" onClick={ () => this.props.emailLogin() }>Login</button>
+                <button className="btn  btn-warning w-50 text-white font-weight-bold" data-toggle="modal" data-target="#signup">Sign Up</button>
             </div>
             
             <div className="container">
@@ -83,6 +88,7 @@ class Login extends Component {
        
      
     );
+        }
   }
 }
 
