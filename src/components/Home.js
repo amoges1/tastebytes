@@ -12,7 +12,7 @@ class Home extends Component {
     if (!this.props.user || !this.props.user.restaurants) {
       return (
         <div className="container mt-3">
-          <h5>Add some restaurants, {this.props.name}!</h5>
+          <h5>Add some restaurants, {this.props.name ? this.props.name.split(" ")[0] : ""}!</h5>
         </div>
       )
     }

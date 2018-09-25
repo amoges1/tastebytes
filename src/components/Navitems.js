@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 
 class Navitems extends Component {
   render() {
@@ -20,16 +19,16 @@ class Navitems extends Component {
                     
                     <div className="collapse navbar-collapse" id="myNav">
                         <div className="navbar-nav ml-auto">
-                            <Link to="/home" className="nav-item nav-link navLink">Home</Link>
-                            <Link to="/friends" className="nav-item nav-link navLink">Friends</Link>
-                            <Link to="/search" className="nav-item nav-link navLink">Search</Link>
+                            <Link to="/home" className="nav-item nav-link navLink text-white">Home</Link>
+                            <Link to="/friends" className="nav-item nav-link navLink text-white">Friends</Link>
+                            <Link to="/search" className="nav-item nav-link navLink text-white">Search</Link>
                             <div className="dropdown">
-                                <a className="nav-item nav-link dropdown-toggle" 
+                                <a className="nav-item nav-link dropdown-toggle text-white" 
                                     id="userDropdown" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false" href="#user">{username}</a>
                                 
                                 <div className="dropdown-menu" aria-labelledby="userDropdown">
-                                    <a className="dropdown-item" href="#logout" onClick={this.props.logout}>Logout</a>
+                                    <Link to="/" className="dropdown-item" onClick={this.props.logout}>Logout</Link>
                                 </div>    
                             </div>
                         </div> 
@@ -38,7 +37,7 @@ class Navitems extends Component {
             </nav>
         );
     } else {
-        return <Redirect to="/"/>
+        return <div></div>;
     }
 
   }

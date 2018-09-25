@@ -16,7 +16,7 @@ class Login extends Component {
     return (
       <div>
           <div className="container-fluid  Login-header border-bottom w-100 mt-3" style={{ background: "red"}}>
-                <h1 style={{color:"white"}}>Welcome To TasteBytes</h1>
+                <h1 style={{color:"white", marginTop:"-16px", paddingTop: "8px"}}>Welcome To TasteBytes</h1>
           </div>
         {/* <header className="container Login-header border-bottom w-100 mt-3" style={{ background: "red"}}>
              <h1>Welcome to TasteBytes</h1>
