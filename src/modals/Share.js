@@ -14,7 +14,13 @@ class Share extends Component {
         let res_address = document.getElementById("res_address").innerHTML;
         let comment = document.getElementById("comment").value;
         let friend = document.getElementById("friend");
-        let friendkey = friend.options[friend.selectedIndex].getAttribute("index")
+        let friendkey;
+        if (friend.options[friend.selectedIndex]) {
+            friendkey = friend.options[friend.selectedIndex].getAttribute("index")
+        } else {
+            alert("Cannot share - You have no friends :(")
+            return;
+        }
         console.log("This is friend, ", friendkey);
         
         //build object
@@ -72,7 +78,9 @@ class Share extends Component {
 
     }
     render() {
+
         let friendList = <p> Add some friends to share your favorite restaurants </p>;
+       
         if(this.props.friends) {
             friendList = 
             <select name="friends" id="friend"> 
