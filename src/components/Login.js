@@ -6,8 +6,7 @@ class Login extends Component {
 
   render() {
     let logged = this.props.name ? true : false;
-    let error = <div className="alert alert-danger alert-dismissible " id="error" style={{ display: "none"}}> 
-                    <button type="button" className="close" data-dismiss="alert">&times;</button> 
+    let error = <div className="alert alert-danger" id="error" style={{ display: "none"}}> 
                     <strong id="message"></strong>    
                 </div>
     if(logged) {

@@ -29,10 +29,10 @@ class Friendframe extends Component {
         if(!friends) {
             return (
                 <div className="container" style={{ paddingTop: "20px" }} data-aos="fade-right"  data-aos-duration="1000">
-                    <h6 className="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#newfriends">
+                    {/* <h6 className="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#newfriends">
                     New Friend Requests!
                         <span className="badge badge-warning">{freqload ? freqload.length : 0} </span>
-                    </h6>
+                    </h6> */}
                 <div id="newfriends" className="collapse">
                     <ul className="list-group mb-3">
                         {
