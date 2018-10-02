@@ -38,13 +38,13 @@ class Login extends Component {
                 <button className="btn  btn-warning w-50 text-white font-weight-bold" data-toggle="modal" data-target="#signup">Sign Up</button>
             </div>
             
-            <div className="container">
+            <div className="container-fluid">
                 {/* <p>Continue wtih...</p> */}
-                <div className="btn-group d-flex mb-3">
+                {/* <div className="btn-group"> */}
                     <button className="btn btn-primary w-100" onClick={ () => this.props.authenticate('facebook')}>
                         <strong> <i className="fab fa-facebook-square"></i> Continue with Facebook </strong> </button>
                     {/* <button className="btn btn-info w-100" onClick={ () => this.props.authenticate('github')}>Github</button> */}
-                </div>
+                {/* </div> */}
 
             </div>
             {/* <button className="btn btn-danger" onClick={ () => this.props.logout()}>Logout</button> */}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sresult from './Sresult';
 import axios from 'axios';
 import base from '../base';
+import { Redirect } from 'react-router';
 
 class Search extends Component {
   constructor() {
@@ -23,53 +24,57 @@ class Search extends Component {
         role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <h5 className="mb-0"> Loading </h5></div></div>;
     }
     
-
-    return (
-    <div>
-        <div className="container" style={{paddingTop: "20px", textAlign: "center"}}>
-       
-        <div className="container border-bottom">
-            <form ref={ (input) => this.searchForm = input } 
-                onSubmit={ (e) => this.getPlaces(e)}>
-                <div className="form-group">
-                    <label htmlFor="term"><strong><h4>What are you craving?</h4></strong></label>
-                    <input ref={ (input) => this.term = input } type="text" className="form-control" id="term" placeholder="El Dorado...Answer to Life"/>
+    if(!this.props.user.profile) {
+        return <Redirect to="/"/>
+    } else {
+        return (
+            <div>
+                <div className="container" style={{paddingTop: "20px", textAlign: "center"}}>
+               
+                <div className="container border-bottom">
+                    <form ref={ (input) => this.searchForm = input } 
+                        onSubmit={ (e) => this.getPlaces(e)}>
+                        <div className="form-group">
+                            <label htmlFor="term"><strong><h4>What are you craving?</h4></strong></label>
+                            <input ref={ (input) => this.term = input } type="text" className="form-control" id="term" placeholder="El Dorado...Answer to Life"/>
+                        </div>
+                        {/* <div className="form-check-inline">
+                            <h6>Use My Location:</h6>
+                        </div> */}
+                        {/* <div className="form-check-inline">
+        
+                            <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="optradio"/>Yes
+                            </label>
+                        </div> */}
+                        {/* <div className="form-check-inline">
+                            <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="optradio"/>No
+                            </label>
+                        </div> */}
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}>Search <i className="fas fa-search"></i></button>
+                        </div>
+                    </form>  
+                    </div>              
                 </div>
-                {/* <div className="form-check-inline">
-                    <h6>Use My Location:</h6>
-                </div> */}
-                {/* <div className="form-check-inline">
-
-                    <label className="form-check-label">
-                        <input type="radio" className="form-check-input" name="optradio"/>Yes
-                    </label>
-                </div> */}
-                {/* <div className="form-check-inline">
-                    <label className="form-check-label">
-                        <input type="radio" className="form-check-input" name="optradio"/>No
-                    </label>
-                </div> */}
-                <div className="form-group">
-                    <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}>Search <i className="fas fa-search"></i></button>
+                <div className="container" style={{marginTop: "20px"}}>
+                   {
+                       progressbar
+                   }
+                    <div className="d-flex flex-row flex-wrap">
+                     {
+                         this.state.choices ? 
+                            Object.keys(this.state.choices)
+                                .map(key => <Sresult key={key} index={key} result={this.state.choices[key]} addPlace={this.addPlace}/>) 
+                            : null
+                     }
+                    </div>
                 </div>
-            </form>  
-            </div>              
-        </div>
-        <div className="container" style={{marginTop: "20px"}}>
-           {
-               progressbar
-           }
-            <div className="d-flex flex-row flex-wrap">
-             {
-                 this.state.choices ? 
-                    Object.keys(this.state.choices)
-                        .map(key => <Sresult key={key} index={key} result={this.state.choices[key]} addPlace={this.addPlace}/>) 
-                    : null
-             }
-            </div>
-        </div>
-     </div>
-    );
+             </div>
+            );
+        
+    }
   }
   
   getPlaces(e) {
