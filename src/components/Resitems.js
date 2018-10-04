@@ -37,7 +37,8 @@ class Resitems extends Component {
         let key = Object.keys(this.props.user.restaurants)
             .find(key => this.props.user.restaurants[key] === res);
         
-        
+        //https://www.google.com/maps/search/Shake+Shack+200+Broadway+New+York+NY+10007
+        let address = `https://www.google.com/maps/search/${res.name}+${res.address.split("+")}`
         let resload;
         if (res.reviews) {
             resload = Object.keys(res['reviews']).map( key=>
@@ -67,9 +68,9 @@ class Resitems extends Component {
                             <button onClick={ (e) => this.getShareInfo(e, key)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
                                 Share <i className="fas fa-user-friends"></i>
                             </button>
-                            <button type="button" className="btn btn-warning flex-fill" data-toggle="modal" data-target="#map">
+                            <a href={address} target="_blank" className="btn btn-warning flex-fill">
                                 Location <i className="fas fa-map-marker-alt"></i>
-                            </button> 
+                            </a> 
                             <button data-key={this.props.index} onClick={ (e) => this.getDeleteInfo(e, key)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">
                                 Delete <i className="fas fa-trash-alt"></i></button>
                         </div> 

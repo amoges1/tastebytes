@@ -39,14 +39,16 @@ class Home extends Component {
             <h5>Add some restaurants, {this.props.name ? this.props.name.split(" ")[0] : ""}!</h5>
           </div>
         )
+      } else {
+        return (
+          <div>
+            <Recsframe recs={recs} user={this.props.user} user_id={this.props.user_id}/>
+            <Resframe res={res} user={this.props.user}/>
+            <Share friends={friends} name={this.props.name}/>
+          </div>
+        );
       }
-    return (
-      <div>
-        <Recsframe recs={recs} user={this.props.user} user_id={this.props.user_id}/>
-        <Resframe res={res} user={this.props.user}/>
-        <Share friends={friends} name={this.props.name}/>
-      </div>
-    );
+   
    }
   }
   
