@@ -172,10 +172,7 @@ class App extends Component {
             <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
             <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
           </Switch>
-          
-          
-          <Map/>
-
+           
           <Signup signup={this.signup}/>
           <Delete user_id={this.state.user_id}/>
           
