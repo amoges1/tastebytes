@@ -8,9 +8,6 @@ class Rating extends Component {
         this.state = {}
     }
 
-    componentDidMount() {
-
-    }
     addReview(e) {
         console.log(e);
         
@@ -51,7 +48,7 @@ class Rating extends Component {
                           for (let key in res.reviews) {
                               average += res.reviews[key].score;
                               count += 1
-                              console.log("adding ", res.reviews[key].score);
+                            //   console.log("adding ", res.reviews[key].score);
                               
                           }
                           average = average/count

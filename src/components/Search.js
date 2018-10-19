@@ -38,20 +38,6 @@ class Search extends Component {
                             <label htmlFor="term"><strong><h4>What are you craving?</h4></strong></label>
                             <input ref={ (input) => this.term = input } type="text" className="form-control" id="term" placeholder="El Dorado...Answer to Life"/>
                         </div>
-                        {/* <div className="form-check-inline">
-                            <h6>Use My Location:</h6>
-                        </div> */}
-                        {/* <div className="form-check-inline">
-        
-                            <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optradio"/>Yes
-                            </label>
-                        </div> */}
-                        {/* <div className="form-check-inline">
-                            <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optradio"/>No
-                            </label>
-                        </div> */}
                         <div className="form-group">
                             <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}>Search <i className="fas fa-search"></i></button>
                         </div>

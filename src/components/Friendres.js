@@ -69,7 +69,7 @@ class Friendres extends Component {
     }
     render() {
         const res = this.props.res;
-        
+        let res_link = `https://www.google.com/maps/search/${res.name}+${res.address.split("+")}`;
         return (
             <tr>
                 <td style={{textAlign: "center", marginTop: "7px"}}> <h5> {res.name}
@@ -80,9 +80,9 @@ class Friendres extends Component {
                         <button type="button" id={`${this.props.index}`} onClick={(e) => this.addRes(e, res.name, res.address)} className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
                                 Add <i className="fas fa-plus-circle"></i>
                         </button> 
-                        <button type="button" className="btn btn-warning flex-fill " data-toggle="modal" data-target="#map">
+                        <a href={res_link} target="_blank" className="btn btn-warning flex-fill">
                                 Location <i className="fas fa-map-marker-alt"></i>
-                        </button>
+                            </a> 
                         <button type="button" data-res={`${this.props.index}`} data-friend={`${this.props.friendKey}`} onClick={(e) => this.showReview(e, res.name, res.address)} className="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
                                 Rate <i className="far fa-list-alt"></i>
                         </button> 

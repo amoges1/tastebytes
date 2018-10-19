@@ -42,9 +42,6 @@ class Frequests extends Component {
     addRequest(e, freqs){
         e.preventDefault();
         
-        console.log(freqs);
-        
-        
         //update my friends
         const myFriends = this.props.user.friends;
         for(var key in myFriends) {
@@ -65,10 +62,7 @@ class Frequests extends Component {
             base.push(`users/${freqs.key}/friends/`, {
                 data: {key: this.props.user_id, name: this.props.name, email: this.props.email, connected: true},
                 then(err){
-                  if(err){
-                    console.log(err);
-                    ;
-                  }
+                  if(err){ console.log(err); }
                 }
               });
         }

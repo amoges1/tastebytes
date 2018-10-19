@@ -103,7 +103,7 @@ class App extends Component {
             //loop through users
             for (let key in users) {
               if(users[key].profile.email === email) {
-                console.log(users[key].profile.email);
+                // console.log(users[key].profile.email);
                 create = false;
               }
             }
@@ -131,12 +131,12 @@ class App extends Component {
 
   logout() {
     base.unauth();
-    console.log("Logged out");
+    //console.log("Logged out");
     this.setState( {user: {}, name: null, email: null, user_id:null });
   }
 
   componentDidMount() {
-    console.log("3. onAuth");
+    //console.log("3. onAuth");
     
     base.onAuth((user) => {
          this.setState( {user: {}, email: null, user_id: null, name:null });

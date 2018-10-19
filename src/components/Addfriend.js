@@ -112,7 +112,6 @@ class Addfriend extends Component {
         <div className="container" data-aos="fade-left"  data-aos-duration="1000">
             <form ref={ (input) => this.addfriend = input} onSubmit={(e) => this.sendFrequest(e)}>
                 <div className="form-group">
-                    {/* <label htmlFor="email"><strong>Add a Friend:</strong> </label> */}
                     <div className="input-group">
                         <input ref={ (input) => this.email = input} type="email" className="form-control" placeholder="Enter email address..." />
                         <span className="input-group-btn">

@@ -17,11 +17,8 @@ class Login extends Component {
           <div className="container-fluid  Login-header border-bottom w-100 mt-3" style={{ background: "red"}}>
                 <h1 style={{color:"white", marginTop:"-16px", paddingTop: "8px"}}>Welcome To TasteBytes</h1>
           </div>
-        {/* <header className="container Login-header border-bottom w-100 mt-3" style={{ background: "red"}}>
-             <h1>Welcome to TasteBytes</h1>
-        </header> */}
+      
         <div className="container text-center w-75 mt-3">
-                {/* <h1 className="h3 mb-3 font-weight-normal">Start Here</h1>  */}
             <div className="form-group">
                 <label htmlFor="inputEmail" className="sr-only">Email address</label>
                 <input type="email" id="loginEmail"  className="form-control" placeholder="Email address" required="" autoFocus=""/>        
@@ -39,18 +36,10 @@ class Login extends Component {
             </div>
             
             <div className="container-fluid">
-                {/* <p>Continue wtih...</p> */}
-                {/* <div className="btn-group"> */}
                     <button className="btn btn-primary w-100" onClick={ () => this.props.authenticate('facebook')}>
                         <strong> <i className="fab fa-facebook-square"></i> Continue with Facebook </strong> </button>
-                    {/* <button className="btn btn-info w-100" onClick={ () => this.props.authenticate('github')}>Github</button> */}
-                {/* </div> */}
 
             </div>
-            {/* <button className="btn btn-danger" onClick={ () => this.props.logout()}>Logout</button> */}
-            
-            {/* <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" 
-            data-auto-logout-link="false" data-use-continue-as="false" onClick={ () => this.props.authenticate('facebook')}></div> */}
            
         </div>
         <div className="container text-center w-75 mt-3">

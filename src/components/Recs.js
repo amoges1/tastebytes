@@ -47,10 +47,7 @@ class Recs extends Component {
     base.update(`users/${this.props.user_id}/restaurants/${key}`, {
         data: { added : true},
         then(err){
-          if(err){
-            console.log(err);
-            ;
-          }
+          if(err){ console.log(err); }
         }
       });
    

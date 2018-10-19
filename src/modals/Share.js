@@ -41,10 +41,7 @@ class Share extends Component {
                 base.push(`users/${friendkey}/restaurants/`, {
                     data: shareRes,
                     then(err){
-                      if(err){
-                        console.log(err);
-                        ;
-                      }
+                      if(err){console.log(err);}
                     }
                   });
                 alert(`Recommendation to ${friend.profile.name} is sent!`);
@@ -64,9 +61,7 @@ class Share extends Component {
                         data: shareRes,
                         then(err){
                           if(err){
-                            console.log(err);
-                            ;
-                          }
+                            console.log(err);}
                         }
                       });
                     alert(`Recommendation to ${friend.profile.name} is sent!`);
