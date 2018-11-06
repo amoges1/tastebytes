@@ -36,10 +36,12 @@ class Search extends Component {
                         onSubmit={ (e) => this.getPlaces(e)}>
                         <div className="form-group">
                             <label htmlFor="term"><strong><h4>What are you craving?</h4></strong></label>
-                            <input ref={ (input) => this.term = input } type="text" className="form-control" id="term" placeholder="El Dorado...Answer to Life"/>
+                            <input ref={ (input) => this.term = input } type="text" className="form-control" id="term" placeholder="Let me think..."/>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}>Search <i className="fas fa-search"></i></button>
+                        <img src="../Yelp_trademark_RGB.png" alt="Yelp logo" width="100px"/>
+                            <button type="submit" className="btn btn-success mt-2" onClick={(e) => this.getPlaces(e)}><strong>Search <i className="fas fa-search"></i></strong></button>
+                            
                         </div>
                     </form>  
                     </div>              
