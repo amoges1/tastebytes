@@ -13,7 +13,6 @@ import Friendframe from './components/Friendframe';
 import Search from './components/Search';
 
 import Signup from './modals/Signup';
-import Map from './modals/Map';
 import Delete from './modals/Delete';
 
 import base from './base';
@@ -39,7 +38,7 @@ class App extends Component {
 
   //facebook
   authenticate(provider) {
-    console.log(`1. Trying ${provider}...`);
+    // console.log(`1. Trying ${provider}...`);
     base.authWithOAuthPopup(provider, this.authHandler); //returns as err,authdata callback
   }
 
@@ -152,12 +151,8 @@ class App extends Component {
         })
       }
     })
-
-  
   }
   
- 
-
   render() {
     
     return (
