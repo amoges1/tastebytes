@@ -28,6 +28,9 @@ class Navitems extends Component {
                                 aria-haspopup="true" aria-expanded="false" href="#user">{username}</a>
                                 
                                 <div className="dropdown-menu" aria-labelledby="userDropdown">
+                                    <a className="dropdown-item">Password Reset</a>
+                                    <a className="dropdown-item">Delete Account</a>
+                                    {/* https://firebase.google.com/docs/auth/web/manage-users */}
                                     <Link to="/" className="dropdown-item" onClick={this.props.logout}>Logout</Link>
                                 </div>    
                             </div>
