@@ -18,4 +18,4 @@ In essence, Tastebytes allows users to create their own list of restaurants, caf
 
 It serves as a resource to visit locations based on personal connections instead of strangers. After all, would you take your friend's opinion over a stranger's? Food for thought. 
 
-* This is a personal project made for fun. All Respective icons and service(s) belong to Respective owners. *
+*This is a personal project made for fun. All Respective icons and service(s) belong to Respective owners.*
