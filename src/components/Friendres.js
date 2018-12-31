@@ -80,7 +80,7 @@ class Friendres extends Component {
                         <button type="button" id={`${this.props.index}`} onClick={(e) => this.addRes(e, res.name, res.address)} className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
                                 Add <i className="fas fa-plus-circle"></i>
                         </button> 
-                        <a href={res_link} target="_blank" className="btn btn-warning flex-fill">
+                        <a href={res_link} target="_blank" rel="noopener noreferrer" className="btn btn-warning flex-fill">
                                 Location <i className="fas fa-map-marker-alt"></i>
                             </a> 
                         <button type="button" data-res={`${this.props.index}`} data-friend={`${this.props.friendKey}`} onClick={(e) => this.showReview(e, res.name, res.address)} className="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">

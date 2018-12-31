@@ -10,7 +10,7 @@ class Friends extends Component {
             fresload: <p> Loading ...</p>
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         let fresload;
         const friend = this.props.frens;
 

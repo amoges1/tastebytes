@@ -68,7 +68,7 @@ class Resitems extends Component {
                             <button onClick={ (e) => this.getShareInfo(e, key)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
                                 Share <i className="fas fa-user-friends"></i>
                             </button>
-                            <a href={address} target="_blank" className="btn btn-warning flex-fill">
+                            <a href={address} target="_blank" rel="noopener noreferrer" className="btn btn-warning flex-fill">
                                 Location <i className="fas fa-map-marker-alt"></i>
                             </a> 
                             <button data-key={this.props.index} onClick={ (e) => this.getDeleteInfo(e, key)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">

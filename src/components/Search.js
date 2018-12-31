@@ -149,7 +149,7 @@ class Search extends Component {
     }
   }
   
-  componentWillMount() {
+  componentDidMount() {
       navigator.geolocation.getCurrentPosition(
           (position => {this.setState({position})}
         )
