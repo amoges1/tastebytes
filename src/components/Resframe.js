@@ -23,9 +23,9 @@ const getDeleteInfo =  (user, e, id) => {
 
 const Resframe = ({res, user, name}) => {
 
-    //Return all restaurants with share/delete ability    
+    //Return all restaurants with share/delete ability   style={{paddingTop: "20px"}} 
     return (
-        <div className="container" style={{paddingTop: "20px"}} id="restaurantaccordion" role="tablist" aria-multiselectable="true">
+        <div className="container"  id="restaurantaccordion" role="tablist" aria-multiselectable="true">
         {
             res.length > 0 ? (
                 Object.keys(res).map(
