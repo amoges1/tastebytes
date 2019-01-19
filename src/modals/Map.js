@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Map extends Component {
-  render() {
+//Testing to map restaurant onto modal w/ Google Maps Api
+const Map = () => {
     return (
         <div className="modal fade" id="map">
         <div className="modal-dialog">
@@ -18,7 +18,7 @@ class Map extends Component {
                   
                                        
                                         {/* <script async defer
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQ1bLPjeXDxr6u-2G6lE0NvpaPCWkcmBw&callback=initMap">
+              src="https://maps.googleapis.com/maps/api/js?key=ID&callback=initMap">
             </script>     */}
                 </div> 
                 <div className="modal-footer">
@@ -29,7 +29,6 @@ class Map extends Component {
         </div> 
     </div> 
     );
-  }
 }
 
 export default Map;
