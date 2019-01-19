@@ -5,25 +5,83 @@ import base from '../base';
 import { Redirect } from 'react-router';
 
 class Search extends Component {
-  constructor() {
-      super();
-      this.getPlaces = this.getPlaces.bind(this);
-      this.addPlace = this.addPlace.bind(this);
-
-      this.state = {
-          position: {},
-          choices : {},
-          progress: false
-      }
-  }
-  render() {
-
-    let progressbar; 
-    if(this.state.progress) {
-       progressbar = <div className="progress" style={{height: "30px"}}> <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" 
-        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <h5 className="mb-0"> Loading </h5></div></div>;
+    constructor() {
+        super();
+        this.state = {
+            position: null,
+            choices : {},
+            progress: false
+        }
     }
+
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition(
+            position => this.setState({position})
+        )
+    }
+
+    getPlaces = (e) => {
+        e.preventDefault();
+        
+        if(this.state.position == null) {
+            alert("Retrieving your location...Please make sure GPS Location is Enabled!");
+            return;
+        }
     
+        this.setState({progress: true})
+    
+        const {latitude, longitude} = this.state.position.coords 
+        const term = this.term.value;
+        const config = {
+            headers: {'Authorization': 'Bearer shnGznzM0y3L-q814lEgiU-tsQLoXaAvCxQKvlpMLPjzig_IIssjroIGl7HS3dixCNk-2rLVJpfO_5Bb-ZXa8p-UTWeyAg9mQCzjz3fNeqLcyvw8YQBI_73uEZVTW3Yx'},
+            params: { term, latitude, longitude } //match names match keys   
+        };
+        //Send request to Yelp after header config, CORS = cross origin resource, prefix resolves issue 
+        axios.get('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', config)
+        .then(response => {
+            let results = response.data.businesses.map(business => {
+                return {
+                    name: business.name,
+                    image: business.image_url,
+                    rating: business.rating,
+                    address: business.location.display_address,
+                    reviews: []
+                }
+            })
+            this.setState({choices: results, progress: false})
+        });    
+      }
+    
+    addPlace = (e, name, address) => {
+        e.preventDefault();
+        //If user has no restaurants
+        if(!this.props.user.restaurants) {
+            base.push(`users/${this.props.user_id}/restaurants/`, {
+                data: {name: name, address: address.join(' '), rating:0, added: true },
+                then(err){ 
+                    err ? console.log(err) : alert(`${name} on ${address.join(' ')} is added to your list.`);
+                }
+            });
+            return
+        } 
+       
+        //check if restaurant is in list already
+        const found = Object.keys(this.props.user.restaurants).find(key => 
+            this.props.user.restaurants[key].name === name && this.props.user.restaurants[key].address === address.join(' '))
+        
+        //add restaurant if not found
+        !found ? (
+            base.push(`users/${this.props.user_id}/restaurants/`, {
+                data: {name: name, address: address.join(' '), rating:0, added: true },
+                then(err){ 
+                    err ? console.log(err) : alert(`${name} on ${address.join(' ')} is added to your list.`);
+                }
+            })
+        ) : alert(`${name} at ${address} is already added to your list.`)
+    }
+
+    render() {
+
     if(!this.props.user.profile) {
         return <Redirect to="/"/>
     } else {
@@ -47,7 +105,13 @@ class Search extends Component {
                 </div>
                 <div className="container" style={{marginTop: "20px"}}>
                    {
-                       progressbar
+                       this.state.progress ? (
+                            <div className="progress" style={{height: "30px"}}> 
+                                <div className="progress-bar progress-bar-striped progress-bar-animated bg-danger w-100 text-white" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> 
+                                    <h5 className="mb-0"> Loading </h5>
+                                </div>
+                            </div>
+                       ) : null
                    }
                     <div className="d-flex flex-row flex-wrap">
                      {
@@ -64,97 +128,7 @@ class Search extends Component {
     }
   }
   
-  getPlaces(e) {
-    e.preventDefault();
-    
-    const lat = this.state.position.coords ? this.state.position.coords.latitude : null;
-    const long = this.state.position.coords ? this.state.position.coords.longitude : null;
-    if(lat && long) {
-        this.setState({ progress: true})
-        const term = this.term.value;
-        const config = {
-            headers: {'Authorization': 'Bearer shnGznzM0y3L-q814lEgiU-tsQLoXaAvCxQKvlpMLPjzig_IIssjroIGl7HS3dixCNk-2rLVJpfO_5Bb-ZXa8p-UTWeyAg9mQCzjz3fNeqLcyvw8YQBI_73uEZVTW3Yx'},
-            params: {
-                term: term,
-                latitude: lat,
-                longitude: long
-            }
-            };
-
-            axios.get('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', config)
-            .then(response => {
-                let businesses = response.data.businesses;
-                let results = []
-                businesses.forEach(business => {
-                    let result = {
-                        name: business.name,
-                        image: business.image_url,
-                        rating: business.rating,
-                        address: business.location.display_address,
-                        reviews: []
-                    };
-                    results.push(result) 
-                    this.setState({choices: results, progress: false})           
-                });
-                
-        
-            });
-        } else {
-            alert("Retrieving your location...Please make sure GPS Location is Enabled!");
-        }
-          
-  }
-
-  addPlace(e, name, address){
-    e.preventDefault();
-    
-    if(!this.props.user.restaurants) {
-        base.push(`users/${this.props.user_id}/restaurants/`, {
-            data: {name: name, address: address.join(' '), rating:0, added: true },
-            then(err){
-              if(err){
-                console.log(err);
-              } else {
-                alert(`${name} on ${address.join(' ')} is added to your list.`); 
-
-              }
-            }
-          });
-      
-    } else {
-
-        let contain = false;
-        const restaurants = this.props.user.restaurants;
-        for (var key in restaurants) {
-            if(restaurants[key].name === name && restaurants[key].address === address.join(' ')) {
-                contain = true;
-            }
-        }
-    
-
-        if (!contain) {
-            base.push(`users/${this.props.user_id}/restaurants/`, {
-                data: {name: name, address: address.join(' '), rating:0, added: true },
-                then(err){
-                  if(err){
-                    console.log(err);
-                    ;
-                  }
-                }
-              });
-            alert(`${name} on ${address.join(' ')} is added to your list.`);
-        } else {
-            alert(`${name} at ${address} is already added to your list.`)
-        }
-    }
-  }
   
-  componentDidMount() {
-      navigator.geolocation.getCurrentPosition(
-          (position => {this.setState({position})}
-        )
-      )
-  }
 }
 
 export default Search;
