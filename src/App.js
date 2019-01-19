@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Route, Switch
 } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 import Login from './components/Login';
 import Home from './components/Home';
@@ -63,6 +64,7 @@ class App extends Component {
     
     logout() {
       base.unauth();
+      this.setState( {user: {}, email: null, user_id: null, name:null });
     }
 
     componentDidMount() {
@@ -85,6 +87,7 @@ class App extends Component {
     }
     
     render() {
+      console.log("Userid is:",this.state.user_id);
       
       return (
         <Router>
@@ -93,7 +96,7 @@ class App extends Component {
         
             <Navitems name={this.state.name} logout={this.logout}/>
             <Switch>
-              <Route path='/' render= { () =>  <Login name={this.state.name} authHandler={this.authHandler} logout={this.logout} /> } exact />
+              <Route path='/' render= { () =>  this.state.name ? <Redirect to="/home"/> : <Login name={this.state.name} authHandler={this.authHandler}/>  } exact />
               <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
               <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
               <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
