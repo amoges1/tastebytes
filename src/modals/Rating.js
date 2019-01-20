@@ -104,7 +104,7 @@ class Rating extends Component {
         <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header" style={{backgroundColor: "#dc3545"}}>
-                    <h5 className="modal-title" style={{color: "white"}}>Rate</h5>
+                    <h5 className="modal-title" style={{color: "white"}}>Review</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
