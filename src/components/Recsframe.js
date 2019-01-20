@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Rec from './Rec';
 import base from '../base';
 
