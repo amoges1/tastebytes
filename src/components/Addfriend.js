@@ -93,7 +93,7 @@ class Addfriend extends Component {
     
     render() {
         return (
-            <div className="container" data-aos="fade-left"  data-aos-duration="1000">
+            <div className="container" data-aos="fade-up"  data-aos-duration="1000">
                 <form ref={ (input) => this.addfriend = input} onSubmit={(e) => this.sendFrequest(e)}>
                     <div className="form-group">
                         <div className="input-group">
