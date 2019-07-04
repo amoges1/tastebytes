@@ -87,7 +87,7 @@ class App extends Component {
     }
     
     render() {
-      console.log("Userid is:",this.state.user_id);
+      // console.log("Userid is:",this.state.user_id);
       
       return (
         <Router>
@@ -96,13 +96,16 @@ class App extends Component {
         
             <Navitems name={this.state.name} logout={this.logout}/>
             <Switch>
-              <Route path='/' render= { () =>  this.state.name ? <Redirect to="/home"/> : <Login name={this.state.name} authHandler={this.authHandler}/>  } exact />
+              <Route path='/' render= { () =>  this.state.name ? <Redirect to="/home"/> : <Login authHandler={this.authHandler}/>  } exact />
+
               <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
-              <Route path='/friends' render={ () => <Friendframe user={this.state.user} name={this.state.name} user_id={this.state.user_id} email={this.state.email} />} exact />
+
+              <Route path='/friends' render={ () => <Friendframe {...this.state}  />} exact />
+              
               <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
             </Switch>
             
-            <Signup authHandler={this.authHandler}/>
+            <Signup authHandler={this.authHandler} _this={this}/>
             <Delete user_id={this.state.user_id}/>
             
           </div>
