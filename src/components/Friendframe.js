@@ -28,7 +28,7 @@ const Friendframe = ({user, name, email, user_id}) => {
     return (
         <div className="container" style={{ paddingTop: "20px" }} data-aos="fade-up" data-aos-duration="1000">
             {
-                freqload.length > 0 ? (
+                freqload && freqload.length > 0 ? (
                     <div className="container">
                     <h6 className="alert alert-warning alert-heading d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#newfriends"> New Friend Requests! <span className="badge badge-warning">{freqload ? freqload.length : 0} </span>
                     </h6>
