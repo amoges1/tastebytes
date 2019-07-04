@@ -96,13 +96,13 @@ class App extends Component {
         
             <Navitems name={this.state.name} logout={this.logout}/>
             <Switch>
-              <Route path='/' render= { () =>  this.state.name ? <Redirect to="/home"/> : <Login authHandler={this.authHandler}/>  } exact />
+              <Route path='/' render= { () =>  !this.state.name ? <Login authHandler={this.authHandler}/> : <Redirect to="/home"/>  } exact />
 
-              <Route path='/home' render= { () => <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
+              <Route path='/home' render= { () => !this.state.name ? <Redirect to="/"/> : <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
 
-              <Route path='/friends' render={ () => <Friendframe {...this.state}  />} exact />
+              <Route path='/friends' render={ () => !this.state.name ? <Redirect to="/"/> : <Friendframe {...this.state}  />} exact />
               
-              <Route path='/search' render={ () => <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
+              <Route path='/search' render={ () => !this.state.name ? <Redirect to="/"/> : <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
             </Switch>
             
             <Signup authHandler={this.authHandler} _this={this}/>
