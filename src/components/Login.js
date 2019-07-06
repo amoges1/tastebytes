@@ -43,7 +43,7 @@ const Login = ({authHandler}) => {
                     </div>
                 
                 </form>
-                <div className="container-fluid">
+                <div>
                     <button className="btn btn-primary w-100" onClick={ () => handleFacebookLogin('facebook', authHandler)}>
                         <strong> <i className="fab fa-facebook-square"></i> Continue with Facebook </strong> 
                     </button>
