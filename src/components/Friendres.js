@@ -58,15 +58,15 @@ const Friendres = ({res, index, friendKey, user_id, _this}) => {
             </td>
             <td style={{textAlign: "center"}}> 
                 <div className="d-flex flex-wrap">
-                    <button type="button" id={`${index}`} onClick={(e) => addPlace(e, res.name, res.address, user_id, _this)} className="btn btn-success flex-fill" data-toggle="modal" data-target="#add">
+                    <button type="button" id={`${index}`} onClick={(e) => addPlace(e, res.name, res.address, user_id, _this)} className="btn btn-success flex-fill m-1" data-toggle="modal" data-target="#add">
                             Add <i className="fas fa-plus-circle"></i>
                     </button> 
-                    <a href={res_link} target="_blank" rel="noopener noreferrer" className="btn btn-warning flex-fill">
+                    <a href={res_link} target="_blank" rel="noopener noreferrer" className="btn btn-warning flex-fill m-1">
                         Location <i className="fas fa-map-marker-alt"></i>
                     </a> 
                     <button type="button" data-res={`${index}`} data-friend={`${friendKey}`} 
                         onClick={(e) => showReview(e, res.name, res.address)} 
-                        className="btn btn-danger flex-fill " data-toggle="modal" data-target="#rate">
+                        className="btn btn-danger flex-fill m-1" data-toggle="modal" data-target="#rate">
                             Rate <i className="far fa-list-alt"></i>
                     </button> 
                 </div>
