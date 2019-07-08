@@ -11,6 +11,18 @@ class Friends extends Component {
         }
     }
 
+    handleDeleteFriend = (friendID) => {
+        const userFriendIndex = Object.keys(this.props.user.friends).filter(key => this.props.user.friends[key].key === friendID)
+        // Delete friend from user's friends
+        base.remove(`users/${this.props.user_id}/friends/${userFriendIndex}`)
+        .then( () => {
+            // Delete user from friend's friends
+            base.remove(`users/${friendID}/friends/${this.props.user_id}`)
+            .then( () =>  alert('Friend is deleted :( '))
+        })
+        
+    }
+
     componentDidMount() {
         //get Friends' restaurants
         base.fetch(`users/${this.props.frens.key}/restaurants`, {
@@ -45,6 +57,9 @@ class Friends extends Component {
                                     </table>
                                 </div>
                             </div> 
+                        </div>
+                        <div className="container">
+                            <button className="btn btn-secondary w-100 pb-1 mb-3" onClick={ () => this.handleDeleteFriend(`${this.props.frens.key}`) }>Delete {this.props.frens.name}</button>
                         </div> 
                     </div> 
                 </div> 
