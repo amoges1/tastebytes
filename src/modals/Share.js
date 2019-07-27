@@ -1,90 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import base from '../base';
-class Share extends Component {
 
-    constructor() {
-        super();
-        this.shareRestaurant = this.shareRestaurant.bind(this);
+//Parent: Home.js
+const sharePlace = (e, name, _this) => {
+    e.preventDefault();
+    let friend = document.getElementById("friend");    
+    if(friend === null) return;    
+
+    let friendID = friend.options[friend.selectedIndex].getAttribute("index")
+    let res_name = document.getElementById("res_name").innerHTML;
+    let res_address = document.getElementById("res_address").innerHTML;
+    let comment = document.getElementById("comment").value;
+    
+    let place = {
+        name: res_name, address: res_address,
+        added: false, rating: 0, comment: comment,
+        friend: name //current user
     }
+    
+    base.fetch(`users/${friendID}`, {
+        context: _this
+    }).then(friend => {
+        //friend has no restaurant list, just add
+        if(!friend.restaurants) {
+            base.push(`users/${friendID}/restaurants/`, {
+                data: place,
+                then(err){ err ? console.log(err) : alert(`Recommendation to ${friend.profile.name} is sent!`) }
+            });
+            return
+        } 
+        
+        //only add if restaurant not found in friend's list
+        const found = Object.keys(friend.restaurants).find(key => friend.restaurants[key].address === res_address)
 
-    shareRestaurant(e) {
-        e.preventDefault();
-        
-        let res_name = document.getElementById("res_name").innerHTML;
-        let res_address = document.getElementById("res_address").innerHTML;
-        let comment = document.getElementById("comment").value;
-        let friend = document.getElementById("friend");
-        let friendkey;
-        if (friend.options[friend.selectedIndex]) {
-            friendkey = friend.options[friend.selectedIndex].getAttribute("index")
-        } else {
-            alert("Cannot share - You have no friends :(")
-            return;
-        }
-        console.log("This is friend, ", friendkey);
-        
-        //build object
-        let shareRes = {
-            name: res_name,
-            address: res_address,
-            added: false,
-            rating: 0,
-            comment: comment,
-            friend: this.props.name
-        }
-        
-        base.fetch(`users/${friendkey}`, {
-            context: this
-        }).then(friend => {
-            //check their list
-            if(!friend.restaurants) {
-                base.push(`users/${friendkey}/restaurants/`, {
-                    data: shareRes,
-                    then(err){
-                      if(err){console.log(err);}
-                    }
-                  });
-                alert(`Recommendation to ${friend.profile.name} is sent!`);
- 
-            } else {
-                let duplicate = false;
-                let friendres = friend.restaurants;
-                for (var key in friendres) {
-                    if(friendres[key].name === res_name && friendres[key].address === res_address ) {
-                        duplicate = true;
-                    }
-                }
-             
+        !found ? (
+            base.push(`users/${friendID}/restaurants/`, {
+                data: place,
+                then(err){ err ? console.log(err) : alert(`Recommendation to ${friend.profile.name} is sent!`) }
+            })
+        ) : alert(`${friend.profile.name} has ${res_name} at ${res_address} on their list!`) 
+    });        
+}
 
-                if (!duplicate) {
-                    base.push(`users/${friendkey}/restaurants/`, {
-                        data: shareRes,
-                        then(err){
-                          if(err){
-                            console.log(err);}
-                        }
-                      });
-                    alert(`Recommendation to ${friend.profile.name} is sent!`);
-                } else {
-                    alert(`${friend.profile.name} has ${res_name} at ${res_address} on their list!`);
-                }
-            }
-        });        
-
-    }
-    render() {
-
-        let friendList = <p> Add some friends to share your favorite restaurants </p>;
-       
-        if(this.props.friends) {
-            friendList = 
-            <select name="friends" id="friend"> 
-                ${this.props.friends.map(
-                    friend => <option key={friend.key} index={friend.key} value={friend.name}> {friend.name} </option>)}
-            </select>;
-        }
-        
-        
+const Share = ({friends, name, _this}) => {
     return (
         <div className="modal fade" id="share">
         <div className="modal-dialog">
@@ -104,26 +62,34 @@ class Share extends Component {
                         </div>
                     </div>
                     <div className="container">
-                        <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}>
-                            <h5>Share with:
-                                <br />  
-                                {friendList}
-                            </h5>
+                        <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}> 
+                        {
+                            friends.length > 0 ? (
+                                <h5> Share with:
+                                    <br/>
+                                    <select name="friends" id="friend"> 
+                                    {
+                                        friends.map(friend => 
+                                            <option key={friend.key} index={friend.key} value={friend.name}> {friend.name} </option>)
+                                    }
+                                    </select>
+                                </h5>
+                            ) : <h5> Add some friends first! </h5>                                   
+                        }
                         </div>
                         <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}>
-                        <textarea id="comment" rows="4" cols="50" defaultValue="This place is great!"></textarea>
+                            <textarea id="comment" rows="4" cols="50" defaultValue="This place is great!"></textarea>
                         </div>
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button onClick={ (e) => this.shareRestaurant(e)} type="button" className="btn btn-success" 
+                    <button onClick={ (e) => sharePlace(e, name, _this)} type="button" className="btn btn-success" 
                         data-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div> 
     </div>   
     );
-  }
 }
 
 export default Share;
