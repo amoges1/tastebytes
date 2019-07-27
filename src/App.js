@@ -21,102 +21,105 @@ import './App.css';
 
 class App extends Component {
 
-    constructor() {
-      super();
-      this.authHandler = this.authHandler.bind(this);
-      this.logout = this.logout.bind(this);
-      this.state = {
-        user: {},
-        name: null,
-        email: null,
-        user_id: null
-      }
+  constructor() {
+    super(); //calls parent component
+    //manual bind w/o arrow function, which autobinds
+    this.authHandler = this.authHandler.bind(this);
+    this.state = {
+      user: {},
+      name: null,
+      email: null,
+      user_id: null
+    }
+  }    
+
+  authHandler(err, authData) {
+    if (err && err.message) { 
+      console.log(err);              
+      document.getElementById("message").innerHTML = err.message;
+      document.getElementById("error").style.display = "block";
+      return;
+    }
+   
+    
+    if(authData.user) {      
+      //Display FB name or user's email based on traditional signup
+      authData.user.displayName ? this.setState( {name: authData.user.displayName}) 
+          : this.setState({ name: authData.user.email.split("@")[0]})
+      
+      this.setState( {email: authData.user.email});
+
+      
     }    
-
-    authHandler(err, authData) {
-      
-      if (err && err.message) { 
-        console.log(err);              
-        document.getElementById("message").innerHTML = err.message;
-        document.getElementById("error").style.display = "block";
-        return;
-      }
-      if(authData.user) {
-        
-        console.log("User logged in:", authData.user);
-        //Facebook provides user's name or just use email?
-        authData.user.displayName ? this.setState( {name: authData.user.displayName}) 
-            : this.setState({ name: authData.user.email.split("@")[0]});
-        
-        this.setState( {email: authData.user.email});
-        
-        //account retrieval/mapping info to app
-        base.fetch(`users/${this.state.user_id}`, {
-          context: this
-        }).then(() => {
-            base.database().ref(`users/${this.state.user_id}/profile`)
-            .set({ name: this.state.name, email: this.state.email })
-        });
-        
-      }    
-    }
-
-    
-    logout() {
-      base.unauth();
-      this.setState( {user: {}, email: null, user_id: null, name:null });
-    }
-
-    componentDidMount() {
-      
-      //Listens for authentication
-      base.onAuth((user) => {
-        this.setState( {user: {}, email: null, user_id: null, name:null });
-        
-        this.authHandler(null, { user })
-        //Sync with User data if authed
-        if(user) { 
-          this.setState({user_id: user.uid}  ); 
-          this.ref = base.syncState(`users/${this.state.user_id}`, {
-            context: this,
-            state: 'user',
-            isNullable: true
-          })
-        }
-      })
-    }
-    
-    render() {
-      // console.log("Userid is:",this.state.user_id);
-      
-      return (
-        <Router>
-
-          <div className="App">
-        
-            <Navitems name={this.state.name} logout={this.logout}/>
-            <Switch>
-              <Route path='/' render= { () =>  !this.state.name ? <Login authHandler={this.authHandler}/> : <Redirect to="/home"/>  } exact />
-
-              <Route path='/home' render= { () => !this.state.name ? <Redirect to="/"/> : <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id}/> } exact />
-
-              <Route path='/friends' render={ () => !this.state.name ? <Redirect to="/"/> : <Friendframe {...this.state}  />} exact />
-              
-              <Route path='/search' render={ () => !this.state.name ? <Redirect to="/"/> : <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
-            </Switch>
-            
-            <Signup authHandler={this.authHandler} _this={this}/>
-            <Delete user_id={this.state.user_id}/>
-            
-          </div>
-        </Router>
-
-      );
-    }
-  
-    componentWillUmount() {
-      base.removeBinding(this.ref)
-    }
   }
+  
+  logout = () => {
+    base.unauth();
+    this.setState( {user: {}, email: null, user_id: null, name:null });
+  }
+
+  componentDidMount() {
+    //Listens for authentication
+    base.onAuth((user) => {
+      this.setState( {user: {}, email: null, user_id: null, name:null });
+      
+      this.authHandler(null, { user })
+      
+      //Sync with User data if authed
+      if(user) {         
+        this.setState({user_id: user.uid}  ); 
+        this.ref = base.syncState(`users/${this.state.user_id}`, {
+          context: this,
+          state: 'user',
+          isNullable: false,
+          then () {
+            //User just created account
+            if(!this.state.user.profile) { 
+              const setProfile = {
+                profile : {
+                  email: this.state.email,
+                  name: this.state.name
+                }
+              }
+              this.setState({
+                user: setProfile 
+              })
+            }
+          }
+        })
+      }
+    })
+  }
+  
+  render() {
+    
+    return (
+      <Router>
+        <div className="App">
+      
+          <Navitems user_id={this.state.user_id} name={this.state.name} logout={this.logout}/>
+          <Switch>
+            <Route path='/' render= { () =>  !this.state.name ? <Login authHandler={this.authHandler}/> : <Redirect to="/home"/>  } exact />
+
+            <Route path='/home' render= { () => !this.state.name ? <Redirect to="/"/> : <Home user={this.state.user} name={this.state.name} user_id={this.state.user_id} _this={this}/> } exact />
+
+            <Route path='/friends' render={ () => !this.state.name ? <Redirect to="/"/> : <Friendframe {...this.state} _this={this} />} exact />
+            
+            <Route path='/search' render={ () => !this.state.name ? <Redirect to="/"/> : <Search user={this.state.user} user_id={this.state.user_id}/>} exact/>
+          </Switch>
+          
+          <Signup authHandler={this.authHandler} _this={this}/>
+          <Delete user_id={this.state.user_id}/>
+          
+        </div>
+      </Router>
+
+    );
+  }
+
+  componentWillUmount() {
+    base.removeBinding(this.ref)
+  }
+}
 
 export default App;

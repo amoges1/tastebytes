@@ -1,18 +1,15 @@
 import React from 'react';
 import base from '../base';
 
+//Parent: App.js
+//Delete modal for removing user's restaurants
 const deleteRestaurant = (e, user_id) => {
     e.preventDefault();    
-    const id = document.getElementById("deletebutton").getAttribute("data-key");
-    
-    base.remove(`users/${user_id}/restaurants/${id}`, 
-        function(err) { 
-            if(err) console.log(err)  
-        });
+    const res_id = document.getElementById("deletebutton").getAttribute("data-key");
+    base.remove(`users/${user_id}/restaurants/${res_id}`).catch(err => console.log(err) ) 
 }
 
 const Delete = ({user_id}) => {
-
     return (
         <div className="modal fade" id="delete">
             <div className="modal-dialog">

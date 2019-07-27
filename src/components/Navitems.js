@@ -1,7 +1,18 @@
 import React from 'react';
+import base from '.././base';
 import { Link } from 'react-router-dom';
 
-const Navitems = ({name, logout}) => {
+//Parent: App.js
+const handleDeleteAccount = (user_id, logout) => {
+    window.confirm("Do you REALLY wish to delete your account?")
+    logout()
+    base.auth().currentUser.delete().then(() => { 
+        base.remove(`users/${user_id}`)
+        alert("Your account has been deleted!")
+    }).catch( (err) => { console.log(err)});   
+}
+
+const Navitems = ({user_id, name, logout}) => {
 
     const navMenu = [
         "Home",
@@ -9,14 +20,12 @@ const Navitems = ({name, logout}) => {
         "Search"
     ];
 
-    if(!name) {
-        return null;
-    }
+    if(!name) { return null; }
    
     return (
         <nav className="navbar navbar-dark navbar-expand-sm" style={{backgroundColor:'red'}}>
             <div className="container">
-                <Link to="/" className="navbar-brand navLink"> TasteBytes</Link>
+                <Link to="/" className="navbar-brand"> TasteBytes</Link>
                 
                 <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#myNav" aria-controls="myNav" 
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -26,9 +35,9 @@ const Navitems = ({name, logout}) => {
                 <div className="collapse navbar-collapse" id="myNav">
                     <div className="navbar-nav ml-auto">
                         {
-                            navMenu.map((nav, index) => {
-                                return <Link key={`${index}`} to={`/${nav.toLowerCase()}`} 
-                                    className="nav-item nav-link navLink text-white"> {nav} </Link>
+                            navMenu.map((navItem, index) => {
+                                return <Link key={`${index}`} to={`/${navItem.toLowerCase()}`} 
+                                    className="nav-item nav-link text-white"> {navItem} </Link>
                             })
                         }
                         <div className="dropdown">
@@ -36,12 +45,10 @@ const Navitems = ({name, logout}) => {
                                 id="userDropdown" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" href="#user">{name.split(" ")[0]}</a>
                             
-                            <div className="dropdown-menu" aria-labelledby="userDropdown">
-                                {/* <a className="dropdown-item disabled">Password Reset</a>
-                                <a className="dropdown-item disabled">Delete Account</a> */}
-                                {/* TODO https://firebase.google.com/docs/auth/web/manage-users */}
+                            <ul className="dropdown-menu" aria-labelledby="userDropdown">                           
+                                <Link to="/" className="dropdown-item" onClick={ () => handleDeleteAccount(user_id, logout)}>Delete Account</Link>
                                 <Link to="/" className="dropdown-item" onClick={logout}>Logout</Link>
-                            </div>    
+                            </ul>    
                         </div>
                     </div> 
                 </div>       

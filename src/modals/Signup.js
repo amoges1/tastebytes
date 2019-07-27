@@ -1,15 +1,15 @@
 import React from 'react';
 import base from '../base';
 
+//Parent: App.js
 const handleEmailCheck = (email, _this) => {
     return new Promise(function(resolve) {
         base.fetch(`users/`, {
             context: _this,
             then(users){
-                // for...in - object props
+                //check if email is taken 
                 for (let key in users) {
                     if(users[key].profile.email === email) {
-                        console.log("Signup email found:",users[key].profile.email);
                         resolve(true);
                     }
                 }
@@ -27,8 +27,6 @@ const handleSubmit = (e, authHandler, _this) => {
     const cpassword = document.getElementById("cpassword").value;
     let signMessage = document.getElementById("signMessage")
     let signError = document.getElementById("signError")
-
-    console.log("email is: ", email);
     
     if(password.length <= 5 || cpassword.length <= 5) {
         signMessage.innerHTML = "Password must be longer than 5 characters";
@@ -55,6 +53,10 @@ const handleSubmit = (e, authHandler, _this) => {
                 password: password
             }, authHandler);
             
+            //clear signup form
+            document.getElementById("SignUpForm").reset();
+            signMessage.innerHTML = "";
+            signError.style.display = "";
             //close signup modal
             document.getElementById("close").click();
         }
@@ -62,7 +64,6 @@ const handleSubmit = (e, authHandler, _this) => {
 }
 
 const Signup = ({authHandler, _this}) => {
-    
     return (
         <div className="modal fade" id="signup">
             <div className="modal-dialog">
@@ -74,7 +75,7 @@ const Signup = ({authHandler, _this}) => {
 
                     <div className="modal-body">
                         <div className="container">
-                            <form onSubmit={(e) => handleSubmit(e,authHandler, _this)}>
+                            <form id="SignUpForm" onSubmit={(e) => handleSubmit(e,authHandler, _this)}>
                                 <div className="form-group">
                                     <label htmlFor="email"><strong>Email address:</strong></label>
                                     <input type="email" id="email" className="form-control" required/>

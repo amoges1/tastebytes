@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import Friendres from './Friendres';
 import base from '../base';
+
+//Parent: Friendframe.js
+//Convert to Function?
 class Friends extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            amount: 0,
-            fresload: null
+            amount: 0, //friends' list amount
+            fresload: null //friends' list payload
         }
     }
 
     handleDeleteFriend = (friendID) => {
-        const userFriendIndex = Object.keys(this.props.user.friends).filter(key => this.props.user.friends[key].key === friendID)
+        const friendIndex = Object.keys(this.props.user.friends).filter(key => this.props.user.friends[key].key === friendID)
         // Delete friend from user's friends
-        base.remove(`users/${this.props.user_id}/friends/${userFriendIndex}`)
-        .then( () => {
-            // Delete user from friend's friends
-            base.remove(`users/${friendID}/friends/${this.props.user_id}`)
-            .then( () =>  alert('Friend is deleted :( '))
-        })
-        
+        base.remove(`users/${this.props.user_id}/friends/${friendIndex}`)
+        // Delete user from friend's friends
+        base.fetch(`users/${friendID}/friends`, {
+            context: this,
+            then (friends) {
+                const userIndex = Object.keys(friends).find(key => friends[key].key === this.props.user_id)
+                base.remove(`users/${friendID}/friends/${userIndex}`)
+            }
+        })  
     }
 
     componentDidMount() {

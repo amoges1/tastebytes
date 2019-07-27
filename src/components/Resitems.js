@@ -1,12 +1,12 @@
 import React from 'react';
 import Review from './Review';
 
+//Parent: Resframe.js
+//Each restaurant contains location and reviews
 const Resitems = ({place, id, getShareInfo, getDeleteInfo}) => {
-    
-    const mapAddress = `https://www.google.com/maps/search/${place.name}+${place.address}`
+    const mapPlace = `https://www.google.com/maps/search/${place.name}+${place.address}`
 
     return (
-        
         <div className="card" style={{marginBottom: "10px"}} data-aos="fade-up"  data-aos-duration="1000">
             <div className="card-header" style={{ backgroundColor: "red"}} id="restaurantheading" data-toggle="collapse" data-parent="restaurantaccordion"
             data-target={`#${id}`} aria-expanded="true" aria-controls="restaurantID">
@@ -25,7 +25,7 @@ const Resitems = ({place, id, getShareInfo, getDeleteInfo}) => {
                         <button onClick={ (e) => getShareInfo(e, id)} type="button" className="btn btn-success flex-fill" data-toggle="modal" data-target="#share">
                             Share <i className="fas fa-user-friends"></i>
                         </button>
-                        <a href={mapAddress} target="_blank" rel="noopener noreferrer" className="btn btn-warning flex-fill">
+                        <a href={mapPlace} target="_blank" rel="noopener noreferrer" className="btn btn-warning flex-fill">
                             Location <i className="fas fa-map-marker-alt"></i>
                         </a> 
                         <button data-key={id} onClick={ (e) => getDeleteInfo(e, id)} type="button" className="btn btn-danger flex-fill" data-toggle="modal" data-target="#delete">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import base from '../base';
 
+// Parent: Friendframe.js
 class Addfriend extends Component {
 
     constructor() {
@@ -24,6 +25,15 @@ class Addfriend extends Component {
             return;
         }
 
+        const userHasRequest = this.props.user.friends ? Object.keys(this.props.user.friends).find(key => this.props.user.friends[key].email === friendEmail && this.props.user.friends[key].connected === false) : null
+
+        if(userHasRequest) {
+            document.getElementById("message").innerHTML = `You already have a request from ${friendEmail}`;
+            document.getElementById("error").style.display = "block"; 
+            this.setState({progress: false});
+            return;
+        }
+
         base.fetch('users', {
             context:this,
             asArray: true, //check friend exists
@@ -37,23 +47,10 @@ class Addfriend extends Component {
                 return;
             }
 
-            if(friend.profile)
-            //friend has no friends/requests
-            if(!friend.friends) {
-                base.push(`users/${friend.key}/friends/`, {
-                    data: {key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false},
-                    then(err){ if(err) console.log(err)}
-                });
-                document.getElementById("message").innerHTML = `Friend request to ${friend.profile.name} is sent!`;
-                document.getElementById("error").style.display = "block"; 
-                this.setState({progress: false});
-                return;
-            }
-
-            const userExists = Object.keys(friend.friends).find(key => friend.friends[key].email === this.props.email )
-            const connStatus = Object.keys(friend.friends).find(key => friend.friends[key].email === this.props.email && friend.friends[key].connected)
+            const friendHasUser = friend.friends ? Object.keys(friend.friends).find(key => friend.friends[key].email === this.props.email ) : null
+            const friendConnStatus = friend.friends ? Object.keys(friend.friends).find(key => friend.friends[key].email === this.props.email && friend.friends[key].connected) : null
             
-            if(!userExists) {
+            if(!friendHasUser) {
                 base.push(`users/${friend.key}/friends/`, {
                     data: {key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false},
                     then(err){ if(err) console.log(err)}
@@ -64,33 +61,22 @@ class Addfriend extends Component {
                 return;
             }
             
-            if(userExists && !connStatus) {
+            if(friendHasUser && !friendConnStatus) {
                 document.getElementById("message").innerHTML = `Friend request to ${friend.profile.name} is already sent!`;
                 document.getElementById("error").style.display = "block"; 
                 this.setState({progress: false});
                 return;
             }
 
-            if(userExists && connStatus) {
+            if(friendHasUser && friendConnStatus) {
                 document.getElementById("message").innerHTML = `You and ${friend.profile.name} are already best friends!`;
                 document.getElementById("error").style.display = "block"; 
                 this.setState({progress: false});
                 return;
             }
-
-            //User doesn't exist + no connection     
-            base.push(`users/${friend.key}/friends/`, {
-                data: {key: this.props.user_id, name: this.props.name, email: this.props.email, connected: false},
-                then(err){ if(err) console.log(err)}
-            });
-            document.getElementById("message").innerHTML = `Friend request to ${friend.profile.name} is sent!`;
-            document.getElementById("error").style.display = "block"; 
-            this.setState({progress: false});
-            return;
         })
     }
 
-    
     render() {
         return (
             <div className="container" data-aos="fade-up"  data-aos-duration="1000">

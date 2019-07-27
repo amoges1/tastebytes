@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Parent: Resitems.js
 const Review = ({review}) => {  
     return (
         <tr>

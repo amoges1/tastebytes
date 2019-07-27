@@ -1,39 +1,35 @@
 import React from 'react';
 import base from '../base';
 
+//Parent: Friends.js
+//Add place to user's home list
 const addPlace = (e, res_name, res_address, user_id, _this) => {
     e.preventDefault();
     base.fetch(`users/${user_id}/`, {
         context: _this,
     }).then(user => {
-
         //if empty restaurant list, create and add place
         if(!user.restaurants) {
             base.push(`users/${user_id}/restaurants/`, {
                 data: {name: res_name, address: res_address, added: true, rating: 0}, 
-                then(err){
-                     err ? console.log(err) : alert(`${res_name} on ${res_address} is now in your list!`)
-                    }
-                }
-            )
+                then(err){ err ? console.log(err) : alert(`${res_name} on ${res_address} is now in your list!`) }
+            })
             return;
         }
-
+        //Check for restaurant in list, add accordingly 
         const found = Object.keys(user.restaurants).find(key =>
             user.restaurants[key].name === res_name && user.restaurants[key].address === res_address)
         
         !found ? (
             base.push(`users/${user_id}/restaurants/`, {
                 data: {name: res_name, address: res_address, added: true, rating: 0}, 
-                then(err){
-                    err ? console.log(err) : alert(`${res_name} on ${res_address} is now in your list!`)
-                    }
-                }
-            )
+                then(err){ err ? console.log(err) : alert(`${res_name} on ${res_address} is now in your list!`)}
+            })
         ) : alert(`You already have ${res_name} on ${res_address} in your list!`)
     })
 }
 
+//Show Review modal with updated information
 const showReview = (e, res_name, res_address) => {
     e.preventDefault();
     //Update Review modal's view
@@ -49,8 +45,8 @@ const showReview = (e, res_name, res_address) => {
 
 //List Friends' list of restaurants, ability to add, locate, and review
 const Friendres = ({res, index, friendKey, user_id, _this}) => {
-    
     const res_link = `https://www.google.com/maps/search/${res.name}+${res.address.split("+")}`;
+    
     return (
         <tr>
             <td style={{textAlign: "center", marginTop: "7px"}}> 

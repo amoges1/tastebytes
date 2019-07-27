@@ -1,28 +1,21 @@
 import React from 'react';
 import base from '../base';
 
+//Parent: Home.js
 const sharePlace = (e, name, _this) => {
     e.preventDefault();
-    let friend = document.getElementById("friend");
-    let friendID;
-    if (friend.options[friend.selectedIndex]) {
-        friendID = friend.options[friend.selectedIndex].getAttribute("index")
-        console.log("friendid", friendID);
-        
-    } else {
-        alert("Cannot share - You have no friends :(")
-        return;
-    }
+    let friend = document.getElementById("friend");    
+    if(friend === null) return;    
 
+    let friendID = friend.options[friend.selectedIndex].getAttribute("index")
     let res_name = document.getElementById("res_name").innerHTML;
     let res_address = document.getElementById("res_address").innerHTML;
     let comment = document.getElementById("comment").value;
     
-    //friend here is current user
     let place = {
         name: res_name, address: res_address,
         added: false, rating: 0, comment: comment,
-        friend: name
+        friend: name //current user
     }
     
     base.fetch(`users/${friendID}`, {
@@ -32,30 +25,24 @@ const sharePlace = (e, name, _this) => {
         if(!friend.restaurants) {
             base.push(`users/${friendID}/restaurants/`, {
                 data: place,
-                then(err){ 
-                    err ? console.log(err) : alert(`Recommendation to ${friend.profile.name} is sent!`)
-                }
+                then(err){ err ? console.log(err) : alert(`Recommendation to ${friend.profile.name} is sent!`) }
             });
             return
         } 
         
         //only add if restaurant not found in friend's list
-        const found = Object.keys(friend.restaurants).find(key => 
-            friend.restaurants[key].name === res_name && friend.restaurants[key].address === res_address)
+        const found = Object.keys(friend.restaurants).find(key => friend.restaurants[key].address === res_address)
 
         !found ? (
             base.push(`users/${friendID}/restaurants/`, {
                 data: place,
-                then(err){ 
-                    err ? console.log(err) : alert(`Recommendation to ${friend.profile.name} is sent!`)
-                }
+                then(err){ err ? console.log(err) : alert(`Recommendation to ${friend.profile.name} is sent!`) }
             })
         ) : alert(`${friend.profile.name} has ${res_name} at ${res_address} on their list!`) 
     });        
 }
 
 const Share = ({friends, name, _this}) => {
-  
     return (
         <div className="modal fade" id="share">
         <div className="modal-dialog">
@@ -75,21 +62,23 @@ const Share = ({friends, name, _this}) => {
                         </div>
                     </div>
                     <div className="container">
-                        <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}>
-                            <h5>Share with:
-                                <br />  
-                                <select name="friends" id="friend"> 
-                                {
-                                    friends ? (
-                                        friends.map(
-                                            friend => <option key={friend.key} index={friend.key} value={friend.name}> {friend.name} </option>)
-                                    ) : null
-                                }
-                                </select>
-                            </h5>
+                        <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}> 
+                        {
+                            friends.length > 0 ? (
+                                <h5> Share with:
+                                    <br/>
+                                    <select name="friends" id="friend"> 
+                                    {
+                                        friends.map(friend => 
+                                            <option key={friend.key} index={friend.key} value={friend.name}> {friend.name} </option>)
+                                    }
+                                    </select>
+                                </h5>
+                            ) : <h5> Add some friends first! </h5>                                   
+                        }
                         </div>
                         <div className="d-flex flex-column align-items-center" style={{marginTop: "20px"}}>
-                        <textarea id="comment" rows="4" cols="50" defaultValue="This place is great!"></textarea>
+                            <textarea id="comment" rows="4" cols="50" defaultValue="This place is great!"></textarea>
                         </div>
                     </div>
                 </div>

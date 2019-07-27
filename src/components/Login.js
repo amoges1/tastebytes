@@ -1,7 +1,7 @@
 import React from 'react';
 import base from '../base';
 
-
+//Parent: App.js
 const handleSubmit = (e, authHandler) => {
     e.preventDefault();
     const email = document.getElementById("loginEmail").value;

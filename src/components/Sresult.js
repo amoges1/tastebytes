@@ -1,7 +1,8 @@
 import React from 'react';
 
+//Parent: Search.js
+//List results with information and add function 
 const Sresult = ({result, addPlace}) => {
-
     return ( 
         <div className="col-md-4 col-sm-6 mb-3" data-aos="fade-up"  data-aos-duration="2450"> 
             <div className="card" style={{width:"14rem", margin:"auto"}}>
@@ -10,7 +11,7 @@ const Sresult = ({result, addPlace}) => {
                         <span className="badge badge-warning">{result.rating}</span>
                     </h6>
                 </div>
-                <img src={`${result.image}`} alt="yelpRes" className="card-img-top" style={ {height: "150px"}}/>
+                <img src={`${result.image}`} alt="BusinessImage" className="card-img-top" style={ {height: "150px"}}/>
             
                 <div className="card-body text-center">
                     <h6 className="card-text mt-2">{result.address.join(' ')}</h6>
