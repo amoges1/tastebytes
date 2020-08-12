@@ -32,11 +32,11 @@ Friends Page, Receiving a Recommendation:
 
 Friends Page, View Friends' List of Locations:
 
-![image](https://user-images.githubusercontent.com/17581500/90064260-8152c580-dcb8-11ea-8b3b-9bd6d3b3ac27.png)
+![image](https://user-images.githubusercontent.com/17581500/90065802-cd9f0500-dcba-11ea-8992-798b682bc18f.png)
 
 Friends Page, Write a Review on a Friends' Location:
 
-![image](https://user-images.githubusercontent.com/17581500/90065802-cd9f0500-dcba-11ea-8992-798b682bc18f.png)
+![image](https://user-images.githubusercontent.com/17581500/90065840-e0193e80-dcba-11ea-8e34-a48dc1ea48d6.png)
 
 Search Page:
 
