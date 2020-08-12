@@ -16,7 +16,7 @@ Tastebytes is a JavaScript React web application that utilizes React Router, Boo
 
 In essence, Tastebytes allows users to create their own list of restaurants, cafes and more with Yelp, Share their lists with Friends and identify commonalities, Recommend locations to each other from your own list, and Rate and comment friends' lists to voice your opinion/experience.
 
-It serves as a resource to visit locations based on personal connections instead of strangers. After all, would you take your friend's opinion over a stranger's? Food for thought. 
+It serves as a resource to visit locations based on personal connections instead of strangers. After all, would you take your friend's opinion over a stranger's? Food for thought. Demo walkthrough is available here: https://youtu.be/lwHXrBTl0-4.
 
 Welcome Page:
 
@@ -41,7 +41,5 @@ Friends Page, Write a Review on a Friends' Location:
 Search Page:
 
 ![image](https://user-images.githubusercontent.com/17581500/90065847-e27b9880-dcba-11ea-8866-96bf14d9b618.png)
-
-Demo walkthrough of Tastebytes is available here: https://youtu.be/lwHXrBTl0-4.
 
 *This is a personal project made for fun. All Respective icons and service(s) belong to Respective owners.*
