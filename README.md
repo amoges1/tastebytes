@@ -20,15 +20,15 @@ It serves as a resource to visit locations based on personal connections instead
 
 Welcome Page:
 
-![image](https://user-images.githubusercontent.com/17581500/90064169-5f594300-dcb8-11ea-93da-0777a22e5101.png)
+![image](https://user-images.githubusercontent.com/17581500/90065785-c7a92400-dcba-11ea-9cda-8b5a6e3325a9.png)
 
 Home Page:
 
-![image](https://user-images.githubusercontent.com/17581500/90064190-68e2ab00-dcb8-11ea-887d-523b08040536.png)
+![image](https://user-images.githubusercontent.com/17581500/90065796-cb3cab00-dcba-11ea-9efc-848903e46921.png)
 
 Friends Page, Receiving a Recommendation:
 
-![image](https://user-images.githubusercontent.com/17581500/90064372-ac3d1980-dcb8-11ea-8951-4058bb3f7212.png)
+![image](https://user-images.githubusercontent.com/17581500/90065834-dd1e4e00-dcba-11ea-98ca-169470c11321.png)
 
 Friends Page, View Friends' List of Locations:
 
@@ -36,11 +36,11 @@ Friends Page, View Friends' List of Locations:
 
 Friends Page, Write a Review on a Friends' Location:
 
-![image](https://user-images.githubusercontent.com/17581500/90064401-b7904500-dcb8-11ea-9d1e-e1ab266472c0.png)
+![image](https://user-images.githubusercontent.com/17581500/90065802-cd9f0500-dcba-11ea-8992-798b682bc18f.png)
 
 Search Page:
 
-![image](https://user-images.githubusercontent.com/17581500/90064417-bbbc6280-dcb8-11ea-89ee-29345ff260db.png)
+![image](https://user-images.githubusercontent.com/17581500/90065847-e27b9880-dcba-11ea-8866-96bf14d9b618.png)
 
 Demo walkthrough of Tastebytes is available here: https://youtu.be/lwHXrBTl0-4.
 
