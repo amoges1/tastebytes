@@ -18,4 +18,24 @@ In essence, Tastebytes allows users to create their own list of restaurants, caf
 
 It serves as a resource to visit locations based on personal connections instead of strangers. After all, would you take your friend's opinion over a stranger's? Food for thought. 
 
+Welcome Page:
+![image](https://user-images.githubusercontent.com/17581500/90064169-5f594300-dcb8-11ea-93da-0777a22e5101.png)
+
+Home Page:
+![image](https://user-images.githubusercontent.com/17581500/90064190-68e2ab00-dcb8-11ea-887d-523b08040536.png)
+
+Friends Page, Receiving a Recommendation:
+![image](https://user-images.githubusercontent.com/17581500/90064372-ac3d1980-dcb8-11ea-8951-4058bb3f7212.png)
+
+Friends Page, View Friends' List of Locations:
+![image](https://user-images.githubusercontent.com/17581500/90064260-8152c580-dcb8-11ea-8b3b-9bd6d3b3ac27.png)
+
+Friends Page, Write a Review on a Friends' Location: 
+![image](https://user-images.githubusercontent.com/17581500/90064401-b7904500-dcb8-11ea-9d1e-e1ab266472c0.png)
+
+Search Page:
+![image](https://user-images.githubusercontent.com/17581500/90064417-bbbc6280-dcb8-11ea-89ee-29345ff260db.png)
+
+Demo walkthrough of Tastebytes is available here: https://youtu.be/lwHXrBTl0-4.
+
 *This is a personal project made for fun. All Respective icons and service(s) belong to Respective owners.*
